@@ -190,7 +190,7 @@ const PricingPage = () => {
           <button
             type="button"
             onClick={() => setActiveTab("seekers")}
-            className={`rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300 sm:px-8 ${
+            className={`cursor-pointer rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300 sm:px-8 ${
               activeTab === "seekers"
                 ? "bg-white text-black shadow-lg"
                 : "text-gray-400 hover:text-white"
@@ -202,7 +202,7 @@ const PricingPage = () => {
           <button
             type="button"
             onClick={() => setActiveTab("recruiters")}
-            className={`rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300 sm:px-8 ${
+            className={`cursor-pointer rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300 sm:px-8 ${
               activeTab === "recruiters"
                 ? "bg-white text-black shadow-lg"
                 : "text-gray-400 hover:text-white"

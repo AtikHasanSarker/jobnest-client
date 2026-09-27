@@ -8,6 +8,7 @@ import {
   Envelope,
 } from "@gravity-ui/icons";
 import { stripe } from "@/lib/stripe";
+import { createSubscription } from "@/lib/actions/subscriptions";
 
 export default async function Success({ searchParams }) {
   const { session_id } = await searchParams;
@@ -18,7 +19,8 @@ export default async function Success({ searchParams }) {
 
   const {
     status,
-    customer_details: { email: customerEmail } = {},
+    customer_details: { email: customerEmail },
+    metadata,
     line_items,
   } = await stripe.checkout.sessions.retrieve(session_id, {
     expand: ["line_items", "payment_intent"],
@@ -31,6 +33,14 @@ export default async function Success({ searchParams }) {
 
   // Payment completed
   if (status === "complete") {
+    const subsInfo = {
+      email: customerEmail,
+      planId: metadata.planId,
+    };
+
+    const result = await createSubscription(subsInfo);
+    console.log(result);
+
     const productName =
       line_items?.data?.[0]?.description || "Your JobNest plan";
 
@@ -51,7 +61,7 @@ export default async function Success({ searchParams }) {
 
         {/* ================= Content ================= */}
 
-        <div className="relative z-10 mx-auto flex min-h-screen max-w-5xl items-center justify-center px-6 py-20">
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-5xl items-center justify-center px-6 mt-20 py-20">
           <section className="w-full max-w-2xl">
             {/* Success Card */}
             <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.035] p-8 text-center shadow-2xl shadow-purple-950/30 backdrop-blur-2xl sm:p-12">

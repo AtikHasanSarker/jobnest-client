@@ -7,6 +7,7 @@ import { getApplicationsByApplicant } from "@/lib/actions/applications";
 import Link from "next/link";
 import { CheckCircle2, Crown } from "lucide-react";
 import BackButton from "@/components/ui/BackButton";
+import { getPlanById } from "@/lib/actions/plans";
 
 const ApplyPage = async ({ params }) => {
   const { id } = await params;
@@ -43,20 +44,13 @@ const ApplyPage = async ({ params }) => {
     );
   }
 
-  const plan = {
-    name: "Free Plan",
-    maxApplicationsPerMonth: 3,
-  };
-
+  const plan = await getPlanById(user?.plan || 'seeker_free');
+  console.log('plan:', plan);
   const job = await getJobById(id);
   const applications = await getApplicationsByApplicant(user?.id);
-  console.log("Applications:", applications);
-
   const applicationCount = applications?.length || 0;
-  const applicationLimit = plan.maxApplicationsPerMonth;
-
+  const applicationLimit = plan.maxApplicationPerMonth;
   const progress = Math.min((applicationCount / applicationLimit) * 100, 100);
-
   const canApply = applicationCount < applicationLimit;
 
   return (

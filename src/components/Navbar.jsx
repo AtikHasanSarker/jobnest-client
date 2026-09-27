@@ -36,7 +36,13 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between rounded-2xl border border-white/10 bg-white/3 px-6 backdrop-blur-xl">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <Image src="nav-logo.png" alt="JobNest Logo" width={100} height={30} />
+            <Image
+              src="/nav-logo.png"
+              alt="JobNest Logo"
+              width={150}
+              height={40}
+              className="w-32 h-auto"
+            />
           </Link>
 
           {/* Right Section */}

@@ -28,11 +28,14 @@ export default function SignupPage() {
     const form = new FormData(e.currentTarget);
     const user = Object.fromEntries(form.entries());
 
+    const plan = user.role === 'seeker' ? 'seeker_free' : 'recruiter_free';
+
     const { data, error } = await authClient.signUp.email({
       name: user.name,
       email: user.email,
       password: user.password,
       role: user.role,
+      plan,
     });
     if(data){
       toast.success("You have Registered Successfully!")
