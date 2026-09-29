@@ -24,6 +24,12 @@ export default function Navbar() {
     { label: "Pricing", href: "/pricing" },
   ];
 
+  const dashboardLinks = {
+    seeker: "/dashboard/seeker",
+    recruiter: "/dashboard/recruiter",
+    admin: "/dashboard/admin",
+  }
+
   const handleLogout = async () => {
     await authClient.signOut();
     toast.success("Logout Successfully!");
@@ -131,7 +137,7 @@ export default function Navbar() {
 
                           <Dropdown.Item
                             id="dashboard"
-                            onClick={() => router.push("/dashboard/recruiter")}
+                            onClick={() => router.push(dashboardLinks[user?.role])}
                             textValue="Dashboard"
                           >
                             <Label className="cursor-pointer flex gap-2 items-center font-semibold">

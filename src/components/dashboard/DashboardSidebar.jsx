@@ -6,21 +6,67 @@ import {
   House,
   Magnifier,
   Person,
+  CreditCard,
+  FileText,
+  Bookmark,
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import { HiOutlineBriefcase } from "react-icons/hi";
 import Link from "next/link";
+import { LayoutDashboard, Search, Settings } from "lucide-react";
 
-export function DashboardSidebar() {
-  const navItems = [
+export async function DashboardSidebar({ user }) {
+
+  const recruiterNavItems = [
     { icon: House, href: "/dashboard/recruiter", label: "Home" },
     { icon: Magnifier, href: "/dashboard/recruiter/jobs", label: "Jobs" },
     { icon: Bell, href: "/dashboard/recruiter/jobs/new", label: "Post A Jobs" },
-    { icon: HiOutlineBriefcase, href: "/dashboard/recruiter/company", label: "Company Profile" },
+    {
+      icon: HiOutlineBriefcase,
+      href: "/dashboard/recruiter/company",
+      label: "Company Profile",
+    },
     { icon: Envelope, href: "/messages", label: "Messages" },
     { icon: Person, href: "/profile", label: "Profile" },
     { icon: Gear, href: "/settings", label: "Settings" },
   ];
+
+  const seekerNavItems = [
+    {
+      icon: LayoutDashboard,
+      href: "/dashboard/job-seeker",
+      label: "Dashboard",
+    },
+
+    { icon: Search, href: "/dashboard/job-seeker/jobs", label: "Jobs" },
+
+    {
+      icon: Bookmark,
+      href: "/dashboard/job-seeker/saved-jobs",
+      label: "Saved Jobs",
+    },
+
+    {
+      icon: FileText,
+      href: "/dashboard/job-seeker/applications",
+      label: "Applications",
+    },
+
+    {
+      icon: CreditCard,
+      href: "/dashboard/job-seeker/billing",
+      label: "Billing",
+    },
+
+    { icon: Settings, href: "/settings", label: "Settings" },
+  ];
+
+  const navLinksMap = {
+    seeker: seekerNavItems,
+    recruiter: recruiterNavItems,
+  };
+
+  const navItems = navLinksMap[user?.role || "seeker"];
 
   const navContent = (
     <nav className="flex flex-col gap-1">
@@ -39,7 +85,9 @@ export function DashboardSidebar() {
 
   return (
     <>
-      <aside className="hidden lg:block w-64 border-r shrink-0 border-default p-4">{navContent}</aside>
+      <aside className="hidden lg:block w-64 border-r shrink-0 border-default p-4">
+        {navContent}
+      </aside>
       <Drawer>
         <Button variant="secondary" className="lg:hidden">
           <LayoutSideContentLeft />
