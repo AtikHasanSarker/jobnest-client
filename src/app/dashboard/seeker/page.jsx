@@ -1,6 +1,6 @@
 import React from 'react';
 
-const page = () => {
+const SeekerDashboardHomePage = () => {
     return (
         <div>
             <h2>Jobnest Seeker Dashboard</h2>
@@ -8,4 +8,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default SeekerDashboardHomePage;

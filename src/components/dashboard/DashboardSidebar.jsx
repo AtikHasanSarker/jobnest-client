@@ -13,7 +13,7 @@ import {
 import { Button, Drawer } from "@heroui/react";
 import { HiOutlineBriefcase } from "react-icons/hi";
 import Link from "next/link";
-import { LayoutDashboard, Search, Settings } from "lucide-react";
+import { BriefcaseBusiness, LayoutDashboard, Search, Settings, Users } from "lucide-react";
 
 export async function DashboardSidebar({ user }) {
 
@@ -61,9 +61,43 @@ export async function DashboardSidebar({ user }) {
     { icon: Settings, href: "/settings", label: "Settings" },
   ];
 
+const adminNavItems = [
+  {
+    icon: LayoutDashboard,
+    href: "/dashboard/admin",
+    label: "Dashboard",
+  },
+  {
+    icon: BriefcaseBusiness,
+    href: "/dashboard/admin/jobs",
+    label: "Jobs",
+  },
+  {
+    icon: Users,
+    href: "/dashboard/admin/users",
+    label: "Users",
+  },
+  {
+    icon: FileText,
+    href: "/dashboard/admin/applications",
+    label: "Applications",
+  },
+  {
+    icon: CreditCard,
+    href: "/dashboard/admin/billing",
+    label: "Billing",
+  },
+  {
+    icon: Settings,
+    href: "/settings",
+    label: "Settings",
+  },
+];
+
   const navLinksMap = {
     seeker: seekerNavItems,
     recruiter: recruiterNavItems,
+    admin: adminNavItems,
   };
 
   const navItems = navLinksMap[user?.role || "seeker"];
