@@ -34,27 +34,27 @@ export async function DashboardSidebar({ user }) {
   const seekerNavItems = [
     {
       icon: LayoutDashboard,
-      href: "/dashboard/job-seeker",
+      href: "/dashboard/seeker",
       label: "Dashboard",
     },
 
-    { icon: Search, href: "/dashboard/job-seeker/jobs", label: "Jobs" },
+    { icon: Search, href: "/dashboard/seeker/jobs", label: "Jobs" },
 
     {
       icon: Bookmark,
-      href: "/dashboard/job-seeker/saved-jobs",
+      href: "/dashboard/seeker/saved-jobs",
       label: "Saved Jobs",
     },
 
     {
       icon: FileText,
-      href: "/dashboard/job-seeker/applications",
+      href: "/dashboard/seeker/applications",
       label: "Applications",
     },
 
     {
       icon: CreditCard,
-      href: "/dashboard/job-seeker/billing",
+      href: "/dashboard/seeker/billing",
       label: "Billing",
     },
 

@@ -38,6 +38,7 @@ const ApplyForm = ({ job, applicant }) => {
       portfolioUrl: formData.get("portfolioUrl"),
       linkedinUrl: formData.get("linkedinUrl"),
       coverLetter: formData.get("coverLetter"),
+      status: "applied",
     };
 
     const res = await submitApplication(applicationData);
