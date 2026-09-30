@@ -16,3 +16,7 @@ export const getLoggedRecruiterCompany = async () => {
   const user = await getUserSession();
   return getRecruiterCompany(user?.id);
 }
+
+export const updateCompany = async (companyId, companyData, PATCH) => {
+  return serverMutation(`companies/${companyId}`, companyData, PATCH);
+};
