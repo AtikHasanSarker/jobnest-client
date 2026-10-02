@@ -61,10 +61,11 @@ const CompanyRegistrations = ({ companies }) => {
         <div className="mt-10 overflow-hidden rounded-lg border border-white/[0.07] bg-[#191919]">
           {/* Table Header */}
 
-          <div className="grid grid-cols-[1fr_1.5fr_1.6fr_0.8fr_0.9fr_1.1fr] items-center border-b border-white/[0.07] text-center bg-[#222222] px-4 py-3 text-xs text-gray-400">
+          <div className="grid grid-cols-[1fr_1.5fr_1.2fr_0.4fr_0.8fr_0.9fr_1.1fr] items-center border-b border-white/[0.07] text-center bg-[#222222] px-4 py-3 text-xs text-gray-400">
             <div>Company Name</div>
             <div>Recruiter Email</div>
             <div>Industry</div>
+            <div>JobCount</div>
             <div>Status</div>
             <div>Date Submitted</div>
             <div className="text-right">Actions</div>
@@ -131,11 +132,12 @@ const CompanyRow = ({ company, handleApproved, handleRejected }) => {
   const companyName = company?.name || "Unknown Company";
   const companyId = company?._id;
   const industry = company?.industry || "—";
+  const jobCount = company?.jobCount || 0;
   const status = company?.status || "pending";
   const dateSubmitted = company?.dateSubmitted || company?.createdAt || null;
 
   return (
-    <div className="grid min-h-[54px] grid-cols-[1.2fr_1.45fr_1.6fr_0.7fr_1fr_1.1fr] items-center border-b border-white/[0.05] px-4 last:border-b-0 hover:bg-white/[0.015]">
+    <div className="grid min-h-[54px] grid-cols-[1.1fr_1.3fr_1.2fr_0.2fr_0.7fr_0.9fr_1fr] items-center border-b border-white/[0.05] px-4 last:border-b-0 hover:bg-white/[0.015]">
       {/* =====================================
           COMPANY
       ===================================== */}
@@ -164,6 +166,12 @@ const CompanyRow = ({ company, handleApproved, handleRejected }) => {
       <div>
         <span className="inline-flex max-w-50 text-left truncate rounded-full bg-[#242424] px-2 py-1 text-[9px] text-gray-400">
           {industry}
+        </span>
+      </div>
+
+      <div>
+        <span className="inline-flex max-w-50 text-left truncate rounded-full bg-[#242424] p-1 text-[10px] text-gray-400">
+          {jobCount}
         </span>
       </div>
 

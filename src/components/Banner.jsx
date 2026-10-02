@@ -109,10 +109,6 @@ const companies = [
 export default function Banner() {
   return (
     <main className="overflow-hidden bg-[#050507] text-white">
-      {/* =====================================================
-          HERO
-      ====================================================== */}
-
       <section className="relative min-h-[900px] overflow-hidden">
         {/* Background gradients */}
 
@@ -137,7 +133,7 @@ export default function Banner() {
 
         {/* Globe */}
 
-        <div className="pointer-events-none absolute left-1/2 top-[120px] w-[1000px] -translate-x-1/2 opacity-70 md:top-[100px] md:w-[1200px]">
+        <div className="pointer-events-none absolute inset-0 w-full opacity-70">
           <Image
             src={globe}
             alt="Global Job Network"
@@ -148,7 +144,7 @@ export default function Banner() {
 
         {/* Hero content */}
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-44">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-40">
           {/* Badge */}
 
           <div className="flex justify-center">
@@ -252,7 +248,7 @@ export default function Banner() {
 
           {/* Floating visual cards */}
 
-          <div className="pointer-events-none absolute left-0 top-[600px] hidden xl:block">
+          <div className="pointer-events-none absolute left-0 top-160 hidden xl:block">
             <div className="rounded-2xl border border-white/10 bg-[#111116]/90 p-4 shadow-2xl backdrop-blur-xl">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10 text-violet-400">
@@ -269,7 +265,7 @@ export default function Banner() {
             </div>
           </div>
 
-          <div className="pointer-events-none absolute right-0 top-[520px] hidden xl:block">
+          <div className="pointer-events-none absolute right-0 top-150 hidden xl:block">
             <div className="w-56 rounded-2xl border border-white/10 bg-[#111116]/90 p-4 shadow-2xl backdrop-blur-xl">
               <div className="mb-3 flex items-center justify-between">
                 <span className="text-[10px] text-gray-500">
