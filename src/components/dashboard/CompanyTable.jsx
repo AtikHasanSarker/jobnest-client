@@ -1,22 +1,19 @@
 "use client";
-
+import { updateCompany } from "@/lib/actions/companies";
 import { Plus, Check, CircleXmark, Ban } from "@gravity-ui/icons";
 
-/* ==========================================
-   MAIN COMPONENT
-========================================== */
-
 const CompanyRegistrations = ({ companies }) => {
-  /* -----------------------------------------
-     Normalize companies
-  ----------------------------------------- */
-
+  const handleApproved = async ({ companyId }) => {
+    const result = await updateCompany(companyId, { status: "approved" });
+    console.log("result:", result);
+  };
+  const handleRejected = async ({ companyId }) => {
+    const result = await updateCompany(companyId, { status: "rejected" });
+    console.log("result:", result);
+  };
   const companyList = Array.isArray(companies) ? companies : [];
 
-  /* -----------------------------------------
-     Statistics
-  ----------------------------------------- */
-
+  //  Statistics
   const pendingCount = companyList.filter(
     (company) => company.status?.toLowerCase() === "pending",
   ).length;
@@ -31,15 +28,7 @@ const CompanyRegistrations = ({ companies }) => {
 
   return (
     <main className="min-h-screen bg-[#111111] text-white">
-      {/* =====================================
-          MAIN CONTENT
-      ===================================== */}
-
       <div className="p-7">
-        {/* =====================================
-            PAGE HEADER
-        ===================================== */}
-
         <div className="flex items-end justify-between">
           <div>
             <h1 className="text-lg font-medium tracking-tight">
@@ -72,48 +61,36 @@ const CompanyRegistrations = ({ companies }) => {
         <div className="mt-10 overflow-hidden rounded-lg border border-white/[0.07] bg-[#191919]">
           {/* Table Header */}
 
-          <div className="grid grid-cols-[1.4fr_1.45fr_1.1fr_0.9fr_1fr_1.1fr] items-center border-b border-white/[0.07] bg-[#222222] px-4 py-3 text-[8px] text-gray-400">
+          <div className="grid grid-cols-[1fr_1.5fr_1.6fr_0.8fr_0.9fr_1.1fr] items-center border-b border-white/[0.07] text-center bg-[#222222] px-4 py-3 text-xs text-gray-400">
             <div>Company Name</div>
-
             <div>Recruiter Email</div>
-
             <div>Industry</div>
-
             <div>Status</div>
-
             <div>Date Submitted</div>
-
             <div className="text-right">Actions</div>
           </div>
 
-          {/* =====================================
-              TABLE BODY
-          ===================================== */}
-
           {companyList.length > 0 ? (
             companyList.map((company) => (
-              <CompanyRow key={company._id} company={company} />
+              <CompanyRow
+                key={company._id}
+                handleApproved={handleApproved}
+                handleRejected={handleRejected}
+                company={company}
+              />
             ))
           ) : (
             <EmptyState />
           )}
 
-          {/* =====================================
-              TABLE FOOTER
-          ===================================== */}
-
           <div className="flex items-center justify-between border-t border-white/[0.07] px-4 py-3">
-            <p className="text-[8px] text-gray-500">
+            <p className="text-xs text-gray-500">
               {companyList.length > 0
                 ? `Showing ${companyList.length} companies`
                 : "No companies"}
             </p>
           </div>
         </div>
-
-        {/* =====================================
-            STATISTICS
-        ===================================== */}
 
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
           <StatCard
@@ -150,36 +127,34 @@ const CompanyRegistrations = ({ companies }) => {
    COMPANY ROW
 ========================================== */
 
-const CompanyRow = ({ company }) => {
-  const companyName =
-    company?.companyName || company?.name || "Unknown Company";
-
-  const recruiterEmail = company?.recruiterEmail || company?.email || "—";
-
+const CompanyRow = ({ company, handleApproved, handleRejected }) => {
+  const companyName = company?.name || "Unknown Company";
+  const companyId = company?._id;
   const industry = company?.industry || "—";
-
   const status = company?.status || "pending";
-
   const dateSubmitted = company?.dateSubmitted || company?.createdAt || null;
 
   return (
-    <div className="grid min-h-[54px] grid-cols-[1.4fr_1.45fr_1.1fr_0.9fr_1fr_1.1fr] items-center border-b border-white/[0.05] px-4 last:border-b-0 hover:bg-white/[0.015]">
+    <div className="grid min-h-[54px] grid-cols-[1.2fr_1.45fr_1.6fr_0.7fr_1fr_1.1fr] items-center border-b border-white/[0.05] px-4 last:border-b-0 hover:bg-white/[0.015]">
       {/* =====================================
           COMPANY
       ===================================== */}
 
-      <div className="flex min-w-0 items-center gap-2.5">
+      <div className="flex items-center gap-2.5">
         <CompanyAvatar name={companyName} />
 
-        <span className="truncate text-[9px] text-gray-300">{companyName}</span>
+        <span className="truncate text-[14px] text-gray-300">
+          {companyName}
+        </span>
       </div>
 
       {/* =====================================
           RECRUITER EMAIL
       ===================================== */}
 
-      <div className="truncate pr-3 text-[8px] text-gray-400">
-        {recruiterEmail}
+      <div className="truncate text-xs text-gray-400">
+        {company.recruiterEmail ||
+          `${companyName.toLowerCase()}@${company.name.toLowerCase().replace(/\s+/g, "")}.com`}
       </div>
 
       {/* =====================================
@@ -187,7 +162,7 @@ const CompanyRow = ({ company }) => {
       ===================================== */}
 
       <div>
-        <span className="inline-flex max-w-[110px] truncate rounded-full bg-[#242424] px-2 py-1 text-[7px] text-gray-400">
+        <span className="inline-flex max-w-50 text-left truncate rounded-full bg-[#242424] px-2 py-1 text-[9px] text-gray-400">
           {industry}
         </span>
       </div>
@@ -196,7 +171,7 @@ const CompanyRow = ({ company }) => {
           STATUS
       ===================================== */}
 
-      <div>
+      <div className="flex justify-center">
         <StatusBadge status={status} />
       </div>
 
@@ -204,19 +179,16 @@ const CompanyRow = ({ company }) => {
           DATE
       ===================================== */}
 
-      <div className="text-[8px] text-gray-400">
+      <div className="text-xs text-center text-gray-400">
         {formatDate(dateSubmitted)}
       </div>
-
-      {/* =====================================
-          ACTIONS
-      ===================================== */}
 
       <div className="flex items-center justify-end gap-1.5">
         {status.toLowerCase() !== "approved" && (
           <button
             type="button"
-            className="rounded border border-emerald-500/20 bg-emerald-500/10 px-2 py-1 text-[7px] text-emerald-400 transition hover:bg-emerald-500/20"
+            onClick={() => handleApproved({ companyId })}
+            className="rounded border border-emerald-500/20 bg-emerald-500/10 px-2 py-1 text-[9px] text-emerald-400 transition hover:bg-emerald-500/20 cursor-pointer"
           >
             Approve
           </button>
@@ -225,7 +197,8 @@ const CompanyRow = ({ company }) => {
         {status.toLowerCase() !== "rejected" && (
           <button
             type="button"
-            className="rounded border border-red-500/20 bg-red-500/10 px-2 py-1 text-[7px] text-red-400 transition hover:bg-red-500/20"
+            onClick={() => handleRejected({ companyId })}
+            className="rounded border border-red-500/20 bg-red-500/10 px-2 py-1 text-[9px] text-red-400 transition hover:bg-red-500/20 cursor-pointer"
           >
             Reject
           </button>
@@ -234,10 +207,6 @@ const CompanyRow = ({ company }) => {
     </div>
   );
 };
-
-/* ==========================================
-   COMPANY AVATAR
-========================================== */
 
 const CompanyAvatar = ({ name }) => {
   const initials = name
@@ -254,10 +223,6 @@ const CompanyAvatar = ({ name }) => {
     </div>
   );
 };
-
-/* ==========================================
-   STATUS BADGE
-========================================== */
 
 const StatusBadge = ({ status }) => {
   const normalized = status?.toLowerCase() || "pending";
@@ -285,17 +250,13 @@ const StatusBadge = ({ status }) => {
   const current = config[normalized] || config.pending;
 
   return (
-    <div className={`flex items-center gap-1.5 text-[8px] ${current.text}`}>
+    <div className={`flex items-center gap-1.5 text-xs ${current.text}`}>
       <span className={`size-1 rounded-full ${current.dot}`} />
 
       {current.label}
     </div>
   );
 };
-
-/* ==========================================
-   STAT CARD
-========================================== */
 
 const StatCard = ({
   icon,

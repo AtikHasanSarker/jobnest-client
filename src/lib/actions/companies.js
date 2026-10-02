@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidatePath } from "next/cache";
 import { serverFetch, serverMutation } from "../api/core/server"
 import { getUserSession } from "../api/core/session";
 
@@ -21,6 +22,9 @@ export const getLoggedRecruiterCompany = async () => {
   return getRecruiterCompany(user?.id);
 }
 
-export const updateCompany = async (companyId, companyData, PATCH) => {
-  return serverMutation(`companies/${companyId}`, companyData, PATCH);
+export const updateCompany = async (id, data) => {
+
+  const result = await serverMutation(`companies/${id}`, data, 'PATCH');
+  revalidatePath("/dashboard/admin/companies");
+  return result;
 };
