@@ -7,6 +7,10 @@ export const createCompany = async (newCompanyData) => {
   return serverMutation('companies', newCompanyData);
 };
 
+export const getCompanies = async () => {
+  return serverFetch("companies");
+}
+
 export const getRecruiterCompany = async (recruiterId) => {
   if (!recruiterId) return null;
   return serverFetch(`my/company?recruiterId=${recruiterId}`);
