@@ -14,6 +14,7 @@ import { Button, Drawer } from "@heroui/react";
 import { HiOutlineBriefcase } from "react-icons/hi";
 import Link from "next/link";
 import { BriefcaseBusiness, LayoutDashboard, Search, Settings, Users } from "lucide-react";
+import { BsBuildings } from "react-icons/bs";
 
 export async function DashboardSidebar({ user }) {
 
@@ -68,19 +69,20 @@ const adminNavItems = [
     label: "Dashboard",
   },
   {
-    icon: BriefcaseBusiness,
-    href: "/dashboard/admin/jobs",
-    label: "Jobs",
-  },
-  {
     icon: Users,
     href: "/dashboard/admin/users",
     label: "Users",
   },
   {
-    icon: FileText,
-    href: "/dashboard/admin/applications",
-    label: "Applications",
+    icon: BsBuildings,
+    href: "/dashboard/admin/companies",
+    label: "Companies",
+  },
+
+  {
+    icon: BriefcaseBusiness,
+    href: "/dashboard/admin/jobs",
+    label: "Jobs",
   },
   {
     icon: CreditCard,

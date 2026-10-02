@@ -98,8 +98,6 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
 
     setCompany(payload);
 
-    console.log(payload);
-
     // Create company
     const res = await createCompany(payload);
     if (res.insertId) {
