@@ -14,10 +14,10 @@ const NotFound = () => {
       {/* ================= Background ================= */}
 
       {/* Purple glow - top */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(ellipse_at_top,#8b006f_0%,#3d003c_38%,transparent_72%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-130 bg-[radial-linear(ellipse_at_top,#8b006f_0%,#3d003c_38%,transparent_72%)]" />
 
       {/* Purple glow - right */}
-      <div className="pointer-events-none absolute -right-40 top-40 h-[500px] w-[500px] rounded-full bg-fuchsia-600/20 blur-[150px]" />
+      <div className="pointer-events-none absolute -right-40 top-40 h-125 w-125 rounded-full bg-fuchsia-600/20 blur-[150px]" />
 
       {/* Purple glow - left */}
       <div className="pointer-events-none absolute -left-40 top-80 h-[450px] w-[450px] rounded-full bg-purple-700/15 blur-[150px]" />
@@ -46,8 +46,8 @@ const NotFound = () => {
         <nav className="flex h-[78px] items-center justify-between rounded-2xl border border-white/10 bg-white/[0.025] px-7 backdrop-blur-xl">
           {/* Logo */}
           <Link href="/" className="text-3xl font-extrabold tracking-tight">
-            <span className="text-cyan-400">hire</span>
-            <span className="text-orange-400">loop</span>
+            <span className="text-cyan-400">Job</span>
+            <span className="text-orange-400">Nest</span>
           </Link>
 
           {/* Navigation */}
@@ -106,17 +106,7 @@ const NotFound = () => {
 
             {/* Planet */}
             <div
-              className="
-                absolute
-                left-1/2
-                top-1/2
-                size-28
-                -translate-x-1/2
-                -translate-y-1/2
-                rounded-full
-                bg-[radial-gradient(circle_at_35%_25%,#ec4899,#7c3aed_45%,#172554_100%)]
-                shadow-[0_0_60px_rgba(168,85,247,0.45)]
-              "
+              className="absolute left-1/2 top-1/2 size-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-linear(circle_at_35%_25%,#ec4899,#7c3aed_45%,#172554_100%)] shadow-[0_0_60px_rgba(168,85,247,0.45)]"
             />
 
             {/* Planet highlight */}
@@ -125,15 +115,7 @@ const NotFound = () => {
             {/* 404 */}
             <div className="relative flex items-center gap-2 text-[145px] font-black leading-none tracking-[-0.08em] md:text-[190px]">
               <span
-                className="
-                  bg-gradient-to-b
-                  from-white
-                  via-purple-300
-                  to-blue-500
-                  bg-clip-text
-                  text-transparent
-                  drop-shadow-[0_0_25px_rgba(139,92,246,0.4)]
-                "
+                className="bg-linear-to-b from-white via-purple-300 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(139,92,246,0.4)]"
               >
                 4
               </span>
@@ -142,15 +124,7 @@ const NotFound = () => {
               <span className="w-28 md:w-36" />
 
               <span
-                className="
-                  bg-gradient-to-b
-                  from-white
-                  via-purple-300
-                  to-blue-500
-                  bg-clip-text
-                  text-transparent
-                  drop-shadow-[0_0_25px_rgba(139,92,246,0.4)]
-                "
+                className="bg-linear-to-b from-white via-purple-300 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(139,92,246,0.4)]"
               >
                 4
               </span>
@@ -174,27 +148,7 @@ const NotFound = () => {
             {/* Home */}
             <Link
               href="/"
-              className="
-                group
-                inline-flex
-                min-w-[180px]
-                items-center
-                justify-center
-                gap-2
-                rounded-full
-                bg-gradient-to-r
-                from-violet-600
-                to-purple-600
-                px-6
-                py-3.5
-                text-sm
-                font-semibold
-                shadow-[0_0_30px_rgba(124,58,237,0.35)]
-                transition
-                duration-200
-                hover:scale-[1.02]
-                hover:shadow-[0_0_40px_rgba(124,58,237,0.5)]
-              "
+              className="group inline-flex min-w-[180px] items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-6 py-3.5 text-sm font-semibold shadow-[0_0_30px_rgba(124,58,237,0.35)] transition duration-200 hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(124,58,237,0.5)]"
             >
               <House className="size-4" />
               Go to Home
@@ -203,27 +157,7 @@ const NotFound = () => {
             {/* Browse Jobs */}
             <Link
               href="/jobs"
-              className="
-                inline-flex
-                min-w-[180px]
-                items-center
-                justify-center
-                gap-2
-                rounded-full
-                border
-                border-white/15
-                bg-white/[0.03]
-                px-6
-                py-3.5
-                text-sm
-                font-semibold
-                text-white
-                backdrop-blur-md
-                transition
-                duration-200
-                hover:border-white/25
-                hover:bg-white/[0.08]
-              "
+              className="inline-flex min-w-[180px] items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition duration-200 hover:border-white/25 hover:bg-white/[0.08]"
             >
               <Magnifier className="size-4" />
               Browse Jobs
@@ -246,23 +180,7 @@ const NotFound = () => {
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Link
                 href="/jobs"
-                className="
-                  inline-flex
-                  items-center
-                  gap-2
-                  rounded-full
-                  border
-                  border-white/10
-                  bg-white/[0.03]
-                  px-4
-                  py-2
-                  text-sm
-                  text-slate-300
-                  transition
-                  hover:border-white/20
-                  hover:bg-white/[0.07]
-                  hover:text-white
-                "
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-slate-300 transition hover:border-violet-500/40 hover:bg-violet-500/10 hover:text-white"
               >
                 <Briefcase className="size-4" />
                 Browse Jobs
@@ -270,23 +188,7 @@ const NotFound = () => {
 
               <Link
                 href="/companies"
-                className="
-                  inline-flex
-                  items-center
-                  gap-2
-                  rounded-full
-                  border
-                  border-white/10
-                  bg-white/[0.03]
-                  px-4
-                  py-2
-                  text-sm
-                  text-slate-300
-                  transition
-                  hover:border-white/20
-                  hover:bg-white/[0.07]
-                  hover:text-white
-                "
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-slate-300 transition hover:border-violet-500/40 hover:bg-violet-500/10 hover:text-white"
               >
                 <Factory className="size-4" />
                 Companies
@@ -294,23 +196,7 @@ const NotFound = () => {
 
               <Link
                 href="/pricing"
-                className="
-                  inline-flex
-                  items-center
-                  gap-2
-                  rounded-full
-                  border
-                  border-white/10
-                  bg-white/[0.03]
-                  px-4
-                  py-2
-                  text-sm
-                  text-slate-300
-                  transition
-                  hover:border-white/20
-                  hover:bg-white/[0.07]
-                  hover:text-white
-                "
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-slate-300 transition hover:border-violet-500/40 hover:bg-violet-500/10 hover:text-white"
               >
                 <CreditCard className="size-4" />
                 Pricing
