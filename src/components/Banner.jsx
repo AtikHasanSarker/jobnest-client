@@ -59,37 +59,37 @@ const categories = [
     title: "Software Development",
     jobs: "12,450 jobs",
     icon: "⌘",
-    gradient: "from-blue-500/20 to-cyan-500/10",
+    linear: "from-blue-500/20 to-cyan-500/10",
   },
   {
     title: "AI & Data",
     jobs: "8,230 jobs",
     icon: "✦",
-    gradient: "from-violet-500/20 to-purple-500/10",
+    linear: "from-violet-500/20 to-purple-500/10",
   },
   {
     title: "Design & Creative",
     jobs: "5,840 jobs",
     icon: "◈",
-    gradient: "from-pink-500/20 to-rose-500/10",
+    linear: "from-pink-500/20 to-rose-500/10",
   },
   {
     title: "Marketing",
     jobs: "4,920 jobs",
     icon: "↗",
-    gradient: "from-orange-500/20 to-amber-500/10",
+    linear: "from-orange-500/20 to-amber-500/10",
   },
   {
     title: "Finance",
     jobs: "3,710 jobs",
     icon: "$",
-    gradient: "from-emerald-500/20 to-green-500/10",
+    linear: "from-emerald-500/20 to-green-500/10",
   },
   {
     title: "Research",
     jobs: "2,650 jobs",
     icon: "⌕",
-    gradient: "from-sky-500/20 to-blue-500/10",
+    linear: "from-sky-500/20 to-blue-500/10",
   },
 ];
 
@@ -109,11 +109,11 @@ const companies = [
 export default function Banner() {
   return (
     <main className="overflow-hidden bg-[#050507] text-white">
-      <section className="relative min-h-[900px] overflow-hidden">
-        {/* Background gradients */}
+      <section className="relative min-h-225 overflow-hidden">
+        {/* Background linears */}
 
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-[-300px] h-[700px] w-[900px] -translate-x-1/2 rounded-full bg-violet-600/20 blur-[140px]" />
+          <div className="absolute left-1/2 -top-75 h-[700px] w-225 -translate-x-1/2 rounded-full bg-violet-600/20 blur-[140px]" />
 
           <div className="absolute right-[-200px] top-[300px] h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[140px]" />
 
@@ -126,7 +126,7 @@ export default function Banner() {
           className="absolute inset-0 opacity-[0.08]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px)",
+              "linear-linear(rgba(255,255,255,.15) 1px, transparent 1px), linear-linear(90deg, rgba(255,255,255,.15) 1px, transparent 1px)",
             backgroundSize: "70px 70px",
           }}
         />
@@ -165,7 +165,7 @@ export default function Banner() {
           <div className="mx-auto mt-8 max-w-5xl text-center">
             <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl md:text-7xl">
               Find work that
-              <span className="block bg-gradient-to-r from-violet-400 via-fuchsia-400 to-blue-400 bg-clip-text text-transparent">
+              <span className="block bg-linear-to-r from-violet-400 via-fuchsia-400 to-blue-400 bg-clip-text text-transparent">
                 moves you forward.
               </span>
             </h1>
@@ -222,7 +222,7 @@ export default function Banner() {
 
                 {/* Search button */}
 
-                <button className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 px-7 py-4 text-sm font-medium transition hover:scale-[1.02] hover:from-violet-500 hover:to-blue-500">
+                <button className="flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-violet-600 to-blue-600 px-7 py-4 text-sm font-medium transition hover:scale-[1.02] hover:from-violet-500 hover:to-blue-500">
                   <IoSearchOutline className="text-xl" />
                   Search Jobs
                 </button>
@@ -302,7 +302,7 @@ export default function Banner() {
                 index !== stats.length - 1 ? "border-r border-white/10" : ""
               }`}
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500/20 to-blue-500/10 text-xl text-violet-400">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-violet-500/20 to-blue-500/10 text-xl text-violet-400">
                 {item.icon}
               </div>
 
@@ -352,7 +352,7 @@ export default function Banner() {
               <Link
                 href={`/jobs?category=${encodeURIComponent(category.title)}`}
                 key={category.title}
-                className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br ${category.gradient} p-6 transition duration-300 hover:-translate-y-1 hover:border-white/20`}
+                className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br ${category.linear} p-6 transition duration-300 hover:-translate-y-1 hover:border-white/20`}
               >
                 <div className="absolute right-[-30px] top-[-30px] h-32 w-32 rounded-full bg-white/[0.03] blur-2xl" />
 
@@ -594,7 +594,7 @@ export default function Banner() {
           {/* Illustration */}
 
           <div className="relative">
-            <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-violet-600/20 via-blue-600/10 to-transparent blur-3xl" />
+            <div className="absolute inset-0 rounded-[40px] bg-linear-to-br from-violet-600/20 via-blue-600/10 to-transparent blur-3xl" />
 
             <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-[#0d0d12] p-4">
               <img
@@ -673,7 +673,7 @@ export default function Banner() {
       ====================================================== */}
 
       <section className="px-6 py-28">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] border border-violet-500/20 bg-gradient-to-br from-violet-950/60 via-[#111116] to-blue-950/50 p-10 md:p-16">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] border border-violet-500/20 bg-linear-to-br from-violet-950/60 via-[#111116] to-blue-950/50 p-10 md:p-16">
           <div className="absolute right-[-100px] top-[-150px] h-[400px] w-[400px] rounded-full bg-violet-500/20 blur-[100px]" />
 
           <div className="relative flex flex-col justify-between gap-10 md:flex-row md:items-center">
