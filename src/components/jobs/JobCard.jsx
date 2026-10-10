@@ -42,8 +42,8 @@ export default function JobCard({ job }) {
           </div>
 
           {/* Job Info */}
-          <div className="min-w-0">
-            <Card.Title className="truncate text-xl font-semibold">
+          <div className="">
+            <Card.Title className="text-ellipsis text-xl font-semibold">
               {job.jobTitle}
             </Card.Title>
 

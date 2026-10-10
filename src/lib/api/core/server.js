@@ -1,5 +1,7 @@
 "use server";
 
+import { getUserToken } from "./session";
+
 const baseUrl = process.env.NEXT_PUBLIC_URL;
 
 export const serverFetch = async (api) => {
@@ -15,6 +17,12 @@ export const authHeader = async () => {
   const header = token ? { Authorization: `Bearer ${token}` } : {};
   return header;
 };
+
+export const protectedServerFetch = async (api) => {  
+  const res = await fetch(`${baseUrl}/api/${api}`, {
+    headers: await authHeader(),
+  });
+}
 
 export const serverMutation = async (api, data, method = "POST") => {
   const res = await fetch(`${baseUrl}/api/${api}`, {

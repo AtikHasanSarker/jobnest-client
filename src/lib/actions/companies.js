@@ -1,7 +1,7 @@
 'use server'
 
 import { revalidatePath } from "next/cache";
-import { serverFetch, serverMutation } from "../api/core/server"
+import { protectedServerFetch, serverFetch, serverMutation } from "../api/core/server"
 import { getUserSession } from "../api/core/session";
 
 export const createCompany = async (newCompanyData) => {
@@ -9,7 +9,7 @@ export const createCompany = async (newCompanyData) => {
 };
 
 export const getCompanies = async () => {
-  return serverFetch("companies");
+  return protectedServerFetch("companies");
 }
 
 export const getRecruiterCompany = async (recruiterId) => {
