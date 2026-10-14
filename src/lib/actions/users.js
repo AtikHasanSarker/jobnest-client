@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 import { auth } from "../auth";
+import { revalidatePath } from "next/cache";
 
 export const getUsersList = async () => {
     const users = await auth.api.listUsers({
@@ -14,3 +15,16 @@ export const getUsersList = async () => {
     });
     return users;
 };
+
+export const updateUserRole = async (userId, role) => {
+  const data = await auth.api.setRole({
+    body: {
+      userId,
+      role
+    },
+    // This endpoint requires session cookies.
+    headers: await headers(),
+  });
+  revalidatePath("/dashboard/admin/users");
+  return data;
+}

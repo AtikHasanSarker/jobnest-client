@@ -1,19 +1,22 @@
 "use client";
+
+import { useState, useTransition } from "react";
+import { Table } from "@heroui/react";
+
 import { updateCompany } from "@/lib/actions/companies";
+
 import { Plus, Check, CircleXmark, Ban } from "@gravity-ui/icons";
 
-const CompanyRegistrations = ({ companies }) => {
-  const handleApproved = async ({ companyId }) => {
-    const result = await updateCompany(companyId, { status: "approved" });
-    console.log("result:", result);
-  };
-  const handleRejected = async ({ companyId }) => {
-    const result = await updateCompany(companyId, { status: "rejected" });
-    console.log("result:", result);
-  };
-  const companyList = Array.isArray(companies) ? companies : [];
+const CompanyRegistrations = ({ companies = [] }) => {
+  const [companyList, setCompanyList] = useState(
+    Array.isArray(companies) ? companies : [],
+  );
 
-  //  Statistics
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [updatingId, setUpdatingId] = useState(null);
+  const [isPending, startTransition] = useTransition();
+
   const pendingCount = companyList.filter(
     (company) => company.status?.toLowerCase() === "pending",
   ).length;
@@ -26,199 +29,290 @@ const CompanyRegistrations = ({ companies }) => {
     (company) => company.status?.toLowerCase() === "rejected",
   ).length;
 
+  const handleStatusChange = (companyId, status) => {
+    if (!companyId || updatingId) return;
+
+    setError("");
+    setSuccess("");
+    setUpdatingId(String(companyId));
+
+    startTransition(async () => {
+      try {
+        const result = await updateCompany(companyId, { status });
+
+        if (result?.success === false || result?.error) {
+          setError(
+            result?.message ||
+              result?.error ||
+              "Unable to update company status.",
+          );
+          return;
+        }
+
+        setCompanyList((current) =>
+          current.map((company) =>
+            String(company._id) === String(companyId)
+              ? { ...company, status }
+              : company,
+          ),
+        );
+
+        setSuccess(`Company status updated to ${formatText(status)}.`);
+      } catch (err) {
+        console.error("Company status update failed:", err);
+        setError("Something went wrong while updating the company.");
+      } finally {
+        setUpdatingId(null);
+      }
+    });
+  };
+
+  const handleApproved = (companyId) => {
+    handleStatusChange(companyId, "approved");
+  };
+
+  const handleRejected = (companyId) => {
+    handleStatusChange(companyId, "rejected");
+  };
+
   return (
     <main className="min-h-screen bg-[#111111] text-white">
-      <div className="p-7">
-        <div className="flex items-end justify-between">
+      <div className="p-4 sm:p-6 lg:p-7">
+        {/* Page Header */}
+        <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h1 className="text-lg font-medium tracking-tight">
+            <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-indigo-400">
+              Administration
+            </p>
+
+            <h1 className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl">
               Company Registrations
             </h1>
 
-            <p className="mt-2 text-[9px] text-gray-500">
+            <p className="mt-2 max-w-xl text-xs leading-5 text-gray-500 sm:text-sm">
               Review and manage corporate entity access requests for the JobNest
               ecosystem.
             </p>
           </div>
 
-          {/* Header Actions */}
+          <button
+            type="button"
+            className="flex h-9 w-fit items-center gap-2 rounded-lg bg-white px-4 text-xs font-medium text-black transition hover:bg-gray-200"
+          >
+            <Plus className="size-3.5" />
+            Register New
+          </button>
+        </header>
 
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              className="flex h-7 items-center gap-2 rounded-md bg-white px-4 text-[9px] font-medium text-black transition hover:bg-gray-200"
-            >
-              <Plus className="size-3" />
-              Register New
-            </button>
+        {/* Feedback */}
+        {error && (
+          <div
+            role="alert"
+            className="mt-5 rounded-lg border border-red-500/20 bg-red-500/[0.07] px-4 py-3 text-xs text-red-400"
+          >
+            {error}
           </div>
-        </div>
+        )}
 
-        {/* =====================================
-            TABLE
-        ===================================== */}
+        {success && (
+          <div
+            role="status"
+            className="mt-5 rounded-lg border border-emerald-500/20 bg-emerald-500/[0.07] px-4 py-3 text-xs text-emerald-400"
+          >
+            {success}
+          </div>
+        )}
 
-        <div className="mt-10 overflow-hidden rounded-lg border border-white/[0.07] bg-[#191919]">
-          {/* Table Header */}
+        {/* Company Table */}
+        <section className="mt-7 overflow-hidden rounded-xl border border-white/[0.07] bg-[#191919]">
+          <div className="flex flex-col gap-2 border-b border-white/[0.07] px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+            <div>
+              <h2 className="text-sm font-medium text-white">
+                All Company Registrations
+              </h2>
 
-          <div className="grid grid-cols-[1fr_1.5fr_1.2fr_0.4fr_0.8fr_0.9fr_1.1fr] items-center border-b border-white/[0.07] text-center bg-[#222222] px-4 py-3 text-xs text-gray-400">
-            <div>Company Name</div>
-            <div>Recruiter Email</div>
-            <div>Industry</div>
-            <div>JobCount</div>
-            <div>Status</div>
-            <div>Date Submitted</div>
-            <div className="text-right">Actions</div>
+              <p className="mt-1 text-[10px] text-gray-500">
+                Review company details and manage approval status.
+              </p>
+            </div>
+
+            <span className="w-fit rounded-full border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-[10px] text-gray-400">
+              {companyList.length} companies
+            </span>
           </div>
 
           {companyList.length > 0 ? (
-            companyList.map((company) => (
-              <CompanyRow
-                key={company._id}
-                handleApproved={handleApproved}
-                handleRejected={handleRejected}
-                company={company}
-              />
-            ))
+            <Table>
+              <Table.ScrollContainer>
+                <Table.Content
+                  aria-label="Company registrations"
+                  className="w-full min-w-[1050px]"
+                >
+                  <Table.Header>
+                    <Table.Column isRowHeader>Company Name</Table.Column>
+
+                    <Table.Column>Recruiter Email</Table.Column>
+
+                    <Table.Column>Industry</Table.Column>
+
+                    <Table.Column>Job Count</Table.Column>
+
+                    <Table.Column>Status</Table.Column>
+
+                    <Table.Column>Date Submitted</Table.Column>
+
+                    <Table.Column>Actions</Table.Column>
+                  </Table.Header>
+
+                  <Table.Body>
+                    {companyList.map((company) => {
+                      const companyId = String(company._id);
+                      const status = (
+                        company.status || "pending"
+                      ).toLowerCase();
+
+                      const isUpdating = isPending && updatingId === companyId;
+
+                      return (
+                        <Table.Row key={companyId}>
+                          {/* Company */}
+                          <Table.Cell>
+                            <div className="flex items-center gap-3">
+                              <CompanyAvatar
+                                name={company.name || "Unknown Company"}
+                              />
+
+                              <span className="whitespace-nowrap text-xs font-medium text-gray-200">
+                                {company.name || "Unknown Company"}
+                              </span>
+                            </div>
+                          </Table.Cell>
+
+                          {/* Recruiter Email */}
+                          <Table.Cell>
+                            <span className="text-xs text-gray-400">
+                              {company.recruiterEmail ||
+                                `${company.name.toLowerCase()}@${company.name.toLowerCase().replace(/\s+/g, "")}.com`}
+                            </span>
+                          </Table.Cell>
+
+                          {/* Industry */}
+                          <Table.Cell>
+                            <span className="inline-flex max-w-44 truncate rounded-full bg-[#242424] px-2.5 py-1 text-[10px] text-gray-400">
+                              {company.industry || "—"}
+                            </span>
+                          </Table.Cell>
+
+                          {/* Job Count */}
+                          <Table.Cell>
+                            <span className="text-xs text-gray-300">
+                              {company.jobCount ?? 0}
+                            </span>
+                          </Table.Cell>
+
+                          {/* Status */}
+                          <Table.Cell>
+                            <StatusBadge status={status} />
+                          </Table.Cell>
+
+                          {/* Date */}
+                          <Table.Cell>
+                            <span className="whitespace-nowrap text-[11px] text-gray-400">
+                              {formatDate(
+                                company.dateSubmitted || company.createdAt,
+                              )}
+                            </span>
+                          </Table.Cell>
+
+                          {/* Actions */}
+                          <Table.Cell>
+                            <div className="flex items-center gap-2">
+                              {status !== "approved" && (
+                                <button
+                                  type="button"
+                                  disabled={isUpdating || isPending}
+                                  onClick={() => handleApproved(companyId)}
+                                  className="cursor-pointer rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1.5 text-[10px] text-emerald-400 transition hover:bg-emerald-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                  {isUpdating ? "Saving..." : "Approve"}
+                                </button>
+                              )}
+
+                              {status !== "rejected" && (
+                                <button
+                                  type="button"
+                                  disabled={isUpdating || isPending}
+                                  onClick={() => handleRejected(companyId)}
+                                  className="cursor-pointer rounded-md border border-red-500/20 bg-red-500/10 px-2.5 py-1.5 text-[10px] text-red-400 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                  {isUpdating ? "Saving..." : "Reject"}
+                                </button>
+                              )}
+                            </div>
+                          </Table.Cell>
+                        </Table.Row>
+                      );
+                    })}
+                  </Table.Body>
+                </Table.Content>
+              </Table.ScrollContainer>
+            </Table>
           ) : (
             <EmptyState />
           )}
 
-          <div className="flex items-center justify-between border-t border-white/[0.07] px-4 py-3">
-            <p className="text-xs text-gray-500">
+          <div className="flex items-center justify-between border-t border-white/[0.07] px-4 py-3 sm:px-5">
+            <p className="text-[10px] text-gray-500">
               {companyList.length > 0
                 ? `Showing ${companyList.length} companies`
                 : "No companies"}
             </p>
-          </div>
-        </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <p className="text-[10px] text-gray-600">JobNest Admin Console</p>
+          </div>
+        </section>
+
+        {/* Statistics */}
+        <section className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           <StatCard
-            icon={<Check className="size-3.5" />}
+            icon={<Check className="size-4" />}
             label="PENDING REVIEW"
             value={pendingCount}
-            change="Awaiting review"
+            description="Awaiting review"
             iconClass="text-amber-400"
+            accentClass="bg-amber-500/10"
           />
 
           <StatCard
-            icon={<Check className="size-3.5" />}
+            icon={<Check className="size-4" />}
             label="APPROVED PARTNERS"
             value={approvedCount}
-            change="Approved companies"
+            description="Approved companies"
             iconClass="text-emerald-400"
+            accentClass="bg-emerald-500/10"
           />
 
           <StatCard
-            icon={<Ban className="size-3.5" />}
+            icon={<Ban className="size-4" />}
             label="TOTAL REJECTIONS"
             value={rejectedCount}
-            change="Rejected companies"
+            description="Rejected companies"
             iconClass="text-red-400"
-            stable
+            accentClass="bg-red-500/10"
           />
-        </div>
+        </section>
       </div>
     </main>
   );
 };
 
 /* ==========================================
-   COMPANY ROW
+   COMPANY AVATAR
 ========================================== */
-
-const CompanyRow = ({ company, handleApproved, handleRejected }) => {
-  const companyName = company?.name || "Unknown Company";
-  const companyId = company?._id;
-  const industry = company?.industry || "—";
-  const jobCount = company?.jobCount || 0;
-  const status = company?.status || "pending";
-  const dateSubmitted = company?.dateSubmitted || company?.createdAt || null;
-
-  return (
-    <div className="grid min-h-[54px] grid-cols-[1.1fr_1.3fr_1.2fr_0.2fr_0.7fr_0.9fr_1fr] items-center border-b border-white/[0.05] px-4 last:border-b-0 hover:bg-white/[0.015]">
-      {/* =====================================
-          COMPANY
-      ===================================== */}
-
-      <div className="flex items-center gap-2.5">
-        <CompanyAvatar name={companyName} />
-
-        <span className="truncate text-[14px] text-gray-300">
-          {companyName}
-        </span>
-      </div>
-
-      {/* =====================================
-          RECRUITER EMAIL
-      ===================================== */}
-
-      <div className="truncate text-xs text-gray-400">
-        {company.recruiterEmail ||
-          `${companyName.toLowerCase()}@${company.name.toLowerCase().replace(/\s+/g, "")}.com`}
-      </div>
-
-      {/* =====================================
-          INDUSTRY
-      ===================================== */}
-
-      <div>
-        <span className="inline-flex max-w-50 text-left truncate rounded-full bg-[#242424] px-2 py-1 text-[9px] text-gray-400">
-          {industry}
-        </span>
-      </div>
-
-      <div>
-        <span className="inline-flex max-w-50 text-left truncate rounded-full bg-[#242424] p-1 text-[10px] text-gray-400">
-          {jobCount}
-        </span>
-      </div>
-
-      {/* =====================================
-          STATUS
-      ===================================== */}
-
-      <div className="flex justify-center">
-        <StatusBadge status={status} />
-      </div>
-
-      {/* =====================================
-          DATE
-      ===================================== */}
-
-      <div className="text-xs text-center text-gray-400">
-        {formatDate(dateSubmitted)}
-      </div>
-
-      <div className="flex items-center justify-end gap-1.5">
-        {status.toLowerCase() !== "approved" && (
-          <button
-            type="button"
-            onClick={() => handleApproved({ companyId })}
-            className="rounded border border-emerald-500/20 bg-emerald-500/10 px-2 py-1 text-[9px] text-emerald-400 transition hover:bg-emerald-500/20 cursor-pointer"
-          >
-            Approve
-          </button>
-        )}
-
-        {status.toLowerCase() !== "rejected" && (
-          <button
-            type="button"
-            onClick={() => handleRejected({ companyId })}
-            className="rounded border border-red-500/20 bg-red-500/10 px-2 py-1 text-[9px] text-red-400 transition hover:bg-red-500/20 cursor-pointer"
-          >
-            Reject
-          </button>
-        )}
-      </div>
-    </div>
-  );
-};
 
 const CompanyAvatar = ({ name }) => {
   const initials = name
-    .split(" ")
+    .split(/\s+/)
     .filter(Boolean)
     .map((word) => word[0])
     .join("")
@@ -226,28 +320,28 @@ const CompanyAvatar = ({ name }) => {
     .toUpperCase();
 
   return (
-    <div className="flex size-5 shrink-0 items-center justify-center rounded bg-[#292929] text-[7px] font-medium text-gray-300">
+    <div className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.06] bg-[#292929] text-[10px] font-medium text-gray-300">
       {initials || "CO"}
     </div>
   );
 };
 
-const StatusBadge = ({ status }) => {
-  const normalized = status?.toLowerCase() || "pending";
+/* ==========================================
+   STATUS BADGE
+========================================== */
 
+const StatusBadge = ({ status }) => {
   const config = {
     pending: {
       dot: "bg-amber-400",
       text: "text-amber-400",
       label: "Pending",
     },
-
     approved: {
       dot: "bg-emerald-400",
       text: "text-emerald-400",
       label: "Approved",
     },
-
     rejected: {
       dot: "bg-red-400",
       text: "text-red-400",
@@ -255,84 +349,94 @@ const StatusBadge = ({ status }) => {
     },
   };
 
-  const current = config[normalized] || config.pending;
+  const current = config[status] || config.pending;
 
   return (
-    <div className={`flex items-center gap-1.5 text-xs ${current.text}`}>
-      <span className={`size-1 rounded-full ${current.dot}`} />
-
+    <span
+      className={`inline-flex items-center gap-1.5 whitespace-nowrap text-[11px] ${current.text}`}
+    >
+      <span className={`size-1.5 rounded-full ${current.dot}`} />
       {current.label}
-    </div>
+    </span>
   );
 };
+
+/* ==========================================
+   STAT CARD
+========================================== */
 
 const StatCard = ({
   icon,
   label,
   value,
-  change,
+  description,
   iconClass,
-  stable = false,
-}) => {
-  return (
-    <div className="rounded-lg border border-white/[0.07] bg-[#191919] p-4">
-      <div className="flex items-start justify-between">
-        <div className={iconClass}>{icon}</div>
-
-        <span
-          className={`text-[7px] ${stable ? "text-gray-400" : "text-gray-500"}`}
-        >
-          {change}
-        </span>
+  accentClass,
+}) => (
+  <div className="rounded-xl border border-white/[0.07] bg-[#191919] p-4 sm:p-5">
+    <div className="flex items-start justify-between">
+      <div
+        className={`flex size-9 items-center justify-center rounded-lg ${accentClass} ${iconClass}`}
+      >
+        {icon}
       </div>
 
-      <p className="mt-4 text-[7px] uppercase tracking-wide text-gray-500">
-        {label}
-      </p>
-
-      <p className="mt-1 text-xl font-medium text-gray-100">{value}</p>
+      <span className="text-[10px] text-gray-500">Live count</span>
     </div>
-  );
-};
+
+    <p className="mt-5 text-[10px] font-medium tracking-wide text-gray-500">
+      {label}
+    </p>
+
+    <p className="mt-1 text-2xl font-semibold text-gray-100">
+      {value.toLocaleString()}
+    </p>
+
+    <p className="mt-2 text-[10px] text-gray-500">{description}</p>
+  </div>
+);
 
 /* ==========================================
    EMPTY STATE
 ========================================== */
 
-const EmptyState = () => {
-  return (
-    <div className="flex min-h-[250px] items-center justify-center">
-      <div className="text-center">
-        <div className="mx-auto flex size-9 items-center justify-center rounded-full bg-white/5">
-          <CircleXmark className="size-4 text-gray-600" />
-        </div>
-
-        <p className="mt-3 text-[10px] text-gray-500">
-          No company registrations found.
-        </p>
-      </div>
+const EmptyState = () => (
+  <div className="flex min-h-64 flex-col items-center justify-center px-5 text-center">
+    <div className="flex size-11 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03]">
+      <CircleXmark className="size-5 text-gray-500" />
     </div>
-  );
-};
+
+    <h3 className="mt-4 text-sm font-medium text-gray-300">
+      No company registrations found
+    </h3>
+
+    <p className="mt-1 text-xs text-gray-500">
+      Company registrations will appear here when available.
+    </p>
+  </div>
+);
 
 /* ==========================================
-   DATE FORMATTER
+   HELPERS
 ========================================== */
 
-const formatDate = (date) => {
-  if (!date) return "—";
+const formatDate = (value) => {
+  if (!value) return "—";
 
-  const parsedDate = new Date(date);
+  const date = new Date(value);
 
-  if (Number.isNaN(parsedDate.getTime())) {
-    return String(date);
+  if (Number.isNaN(date.getTime())) {
+    return String(value);
   }
 
-  return parsedDate.toLocaleDateString("en-US", {
+  return date.toLocaleDateString("en-US", {
     month: "short",
     day: "2-digit",
     year: "numeric",
   });
 };
+
+const formatText = (value) =>
+  value.replace(/[-_]/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 
 export default CompanyRegistrations;
