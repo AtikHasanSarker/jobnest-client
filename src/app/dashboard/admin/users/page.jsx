@@ -3,7 +3,8 @@ import { getUsersList } from "@/lib/actions/users";
 
 const AdminUsersPage = async () => {
   const data = await getUsersList();
-  const users = Array.isArray(data?.users) ? data.users : [];
+  const users = data.users;
+  console.log(users);
 
   return <UserManagement users={users} />;
 };

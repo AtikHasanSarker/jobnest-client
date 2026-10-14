@@ -11,35 +11,32 @@ import {
   CircleX,
 } from "lucide-react";
 import { updateUserRole } from "@/lib/actions/users";
+import Image from "next/image";
 
-const UserManagement = ({ users = [] }) => {
-  const [userList, setUserList] = useState(Array.isArray(users) ? users : []);
-  const [updatingId, setUpdatingId] = useState(null);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [isPending, startTransition] = useTransition();
+const UserManagement = ({ users }) => {
+  const totalUsers = users.length;
 
-  const totalUsers = userList.length;
-
-  const recruiterCount = userList.filter(
+  const recruiterCount = users.filter(
     (user) => user.role?.toLowerCase() === "recruiter",
   ).length;
 
-  const suspendedCount = userList.filter(
+  const suspendedCount = users.filter(
     (user) =>
       user.status?.toLowerCase() === "suspended" || user.isSuspended === true,
   ).length;
 
-  const newSignups = userList.filter((user) => {
-    const value = user.createdAt || user.joinDate;
+  const newSignUps = users.filter((user) => {
+    const value = user.createdAt;
     if (!value) return false;
 
     const date = new Date(value);
-    const age = Date.now() - date.getTime();
 
-    return (
-      !Number.isNaN(date.getTime()) && age >= 0 && age < 24 * 60 * 60 * 1000
-    );
+    if (Number.isNaN(date.getTime())) return false;
+
+    const now = new Date();
+    const age = now.getTime() - date.getTime();
+
+    return age >= 0 && age < 24 * 60 * 60 * 1000;
   }).length;
 
   const stats = [
@@ -69,7 +66,7 @@ const UserManagement = ({ users = [] }) => {
     },
     {
       label: "NEW SIGNUPS (24H)",
-      value: newSignups,
+      value: newSignUps,
       description: "Registered in the last 24 hours",
       icon: <UserPlus className="size-4" />,
       color: "text-amber-400",
@@ -79,7 +76,7 @@ const UserManagement = ({ users = [] }) => {
 
   const handleRoleChange = async (userId, newRole) => {
     const data = await updateUserRole(userId, newRole);
-  }
+  };
 
   return (
     <main className="min-h-screen bg-[#111111] p-4 text-white sm:p-6 lg:p-7">
@@ -145,25 +142,7 @@ const UserManagement = ({ users = [] }) => {
           </span>
         </div>
 
-        {error && (
-          <div
-            role="alert"
-            className="border-b border-red-500/20 bg-red-500/[0.06] px-4 py-3 text-xs text-red-400"
-          >
-            {error}
-          </div>
-        )}
-
-        {success && (
-          <div
-            role="status"
-            className="border-b border-emerald-500/20 bg-emerald-500/[0.06] px-4 py-3 text-xs text-emerald-400"
-          >
-            {success}
-          </div>
-        )}
-
-        {userList.length > 0 ? (
+        {users.length > 0 ? (
           <Table>
             <Table.ScrollContainer>
               <Table.Content
@@ -180,11 +159,9 @@ const UserManagement = ({ users = [] }) => {
                 </Table.Header>
 
                 <Table.Body>
-                  {userList.map((user) => {
+                  {users.map((user) => {
                     const userId = String(user._id || user.id || user.email);
-                    const name =
-                      user.name ||
-                      "Unnamed User";
+                    const name = user.name || "Unnamed User";
 
                     const suspended =
                       user.isSuspended === true ||
@@ -206,14 +183,16 @@ const UserManagement = ({ users = [] }) => {
                       <Table.Row key={userId}>
                         <Table.Cell>
                           <div className="flex items-center gap-3">
-                            {user.image || user.photoURL || user.avatar ? (
-                              <img
-                                src={user.image || user.photoURL || user.avatar}
-                                alt=""
+                            {user.image ? (
+                              <Image
+                                width={48}
+                                height={48}
+                                src={user.image}
+                                alt="user avatar"
                                 className="size-8 shrink-0 rounded-full border border-white/10 object-cover"
                               />
                             ) : (
-                              <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500/20 to-violet-500/20 text-[10px] font-medium text-indigo-200">
+                              <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-indigo-500/20 to-violet-500/20 text-[10px] font-medium text-indigo-200">
                                 {initials || "U"}
                               </div>
                             )}
@@ -249,13 +228,17 @@ const UserManagement = ({ users = [] }) => {
                             <select
                               aria-label={`Change role for ${name}`}
                               value={
-                                ["seeker", "recruiter", "admin", "suspend"].includes(currentRole)
+                                [
+                                  "seeker",
+                                  "recruiter",
+                                  "admin",
+                                  "suspend",
+                                ].includes(currentRole)
                                   ? currentRole
                                   : "seeker"
                               }
-                              disabled={isPending || updatingId === userId}
                               onChange={(event) =>
-                                handleRoleChange(user._id, event.target.value)
+                                handleRoleChange(userId, event.target.value)
                               }
                               className="max-w-36 cursor-pointer rounded-lg border border-white/10 bg-[#242426] px-2.5 py-2 text-[11px] text-gray-200 outline-none transition focus:border-indigo-500/60 disabled:cursor-not-allowed disabled:opacity-50"
                             >
@@ -264,12 +247,6 @@ const UserManagement = ({ users = [] }) => {
                               <option value="admin">Admin</option>
                               <option value="suspend">Suspend</option>
                             </select>
-
-                            {updatingId === userId && (
-                              <span className="text-[10px] text-indigo-400">
-                                Saving...
-                              </span>
-                            )}
                           </div>
                         </Table.Cell>
                       </Table.Row>
