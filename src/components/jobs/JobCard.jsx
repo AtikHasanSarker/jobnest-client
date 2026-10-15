@@ -1,6 +1,7 @@
 import { CircleDollar, } from "@gravity-ui/icons";
 import { Card } from "@heroui/react";
 import { ArrowUpRight, Briefcase, Calendar, Clock, Laptop, MapPin } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function JobCard({ job }) {
@@ -10,7 +11,7 @@ export default function JobCard({ job }) {
     const min = Number(job.minSalary).toLocaleString();
     const max = Number(job.maxSalary).toLocaleString();
 
-    return `${job.currency} ${min} – ${max}`;
+    return `${job.currency} ${min} - ${max}`;
   };
 
   const formatDeadline = () => {
@@ -34,10 +35,12 @@ export default function JobCard({ job }) {
           <div
             className="flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-lg"
           >
-            <img
+            <Image
+              width={40}
+              height={40}
               src={job.companyLogo}
               alt={`${job.companyName} logo`}
-              className="size-full object-contain"
+              className="size-full object-contain"              
             />
           </div>
 
