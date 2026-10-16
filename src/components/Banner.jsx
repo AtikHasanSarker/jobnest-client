@@ -19,6 +19,13 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { getBannerCompany } from "@/lib/actions/companies";
 import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
+import { getFeaturedJobs } from "@/lib/actions/jobs";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const stats = [
   {
@@ -60,14 +67,14 @@ const categories = [
     linear: "from-blue-500/20 to-cyan-500/10",
   },
   {
-    title: "AI & Data",
+    title: "Artificial Intelligence",
     jobs: "8,230 jobs",
     image: "/images/ai&data.jpg",
     icon: "✦",
     linear: "from-violet-500/20 to-purple-500/10",
   },
   {
-    title: "Design & Creative",
+    title: "Design",
     jobs: "5,840 jobs",
     image: "/images/design.jpg",
     icon: "◈",
@@ -84,7 +91,7 @@ const categories = [
     title: "Engineering",
     jobs: "3,710 jobs",
     image: "/images/engineering.jpg",
-    icon: "$",
+    icon: "⩩",
     linear: "from-emerald-500/20 to-green-500/10",
   },
   {
@@ -98,13 +105,20 @@ const categories = [
 
 export default function Banner() {
   const [companies, setCompanies] = useState([]);
+  const [featuredJobs, setFeaturedJobs] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const data = await getBannerCompany();
       setCompanies(data);
     };
     fetchData();
-  }, [setCompanies]);
+
+    const fetchFeaturedJobs = async () => {
+      const data = await getFeaturedJobs();
+      setFeaturedJobs(data);
+    };
+    fetchFeaturedJobs();
+  }, [setCompanies, setFeaturedJobs]);
 
   return (
     <main className="overflow-hidden">
@@ -366,7 +380,7 @@ export default function Banner() {
                   <FiArrowUpRight className="text-gray-600 transition group-hover:text-white" />
                 </div>
 
-                <h3 className="mt-16 text-xl font-medium">{category.title}</h3>
+                <h3 className="mt-20 text-xl font-medium">{category.title}</h3>
               </Link>
             ))}
           </div>
@@ -377,9 +391,9 @@ export default function Banner() {
           FEATURED JOBS
       ====================================================== */}
 
-      <section className="bg-[#09090c] py-28">
+      <section className="bg-[#09090c] py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="flex items-end justify-between">
+          <div className="flex items-end justify-between mb-12">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-blue-400">
                 Curated for you
@@ -403,129 +417,89 @@ export default function Banner() {
             </Link>
           </div>
 
-          <div className="mt-12 grid gap-5 lg:grid-cols-2">
-            {/* Job 1 */}
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            navigation
+            pagination={{ clickable: true }}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            loop={featuredJobs?.length > 3}
+            speed={700}
+            spaceBetween={20}
+            slidesPerView={1}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+            }}
+            className="featured-jobs-swiper !pb-12"
+          >
+            {featuredJobs?.map((job) => (
+              <SwiperSlide key={job._id} className="!h-auto">
+                <div className="group rounded-2xl border border-white/10 bg-[#111115] p-6 transition hover:border-violet-500/30">
+                  <div className="flex justify-between">
+                    <div className="flex justify-between items-center gap-4">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-xl">
+                        <Image
+                          width={56}
+                          height={56}
+                          src={job.companyLogo}
+                          alt={job.companyName}
+                          className="h-full w-full object-contain rounded-xl"
+                        />
+                      </div>
 
-            <div className="group rounded-2xl border border-white/10 bg-[#111115] p-6 transition hover:border-violet-500/30">
-              <div className="flex justify-between">
-                <div className="flex justify-between items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white p-2">
-                    <Image
-                      width={56}
-                      height={56}
-                      src="https://i.ibb.co/B5pj8B5x/airbnb.png"
-                      alt="Airbnb"
-                      className="h-full w-full object-contain"
-                    />
+                      <div>
+                        <h3 className="font-medium">{job.jobTitle}</h3>
+                        <p className="mt-1 text-xs text-gray-500">
+                          {job.companyName}
+                        </p>
+                      </div>
+                    </div>
+
+                    <span className="rounded-full bg-emerald-500/10 h-fit px-3 py-1 text-xs text-emerald-400">
+                      {job.isRemote ? "Remote" : "On-site"}
+                    </span>
                   </div>
 
-                  <div>
-                    <h3 className="font-medium">Senior Software Engineer</h3>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    <span className="rounded-md bg-white/5 px-3 capitalize py-1.5 text-xs text-gray-300">
+                      {job.jobType}
+                    </span>
 
-                    <p className="mt-1 text-xs text-gray-500">
-                      Airbnb · Remote
-                    </p>
-                  </div>
-                </div>
-
-                <span className="rounded-full bg-emerald-500/10 h-fit px-3 py-1 text-xs text-emerald-400">
-                  Remote
-                </span>
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                <span className="rounded-md bg-white/5 px-3 py-1.5 text-xs text-gray-400">
-                  Full-time
-                </span>
-
-                <span className="rounded-md bg-white/5 px-3 py-1.5 text-xs text-gray-400">
-                  Software
-                </span>
-
-                <span className="rounded-md bg-white/5 px-3 py-1.5 text-xs text-gray-400">
-                  Senior
-                </span>
-              </div>
-
-              <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
-                <div>
-                  <p className="text-sm font-medium">$120k - $165k</p>
-
-                  <p className="mt-1 text-[10px] text-gray-600">
-                    Annual salary
-                  </p>
-                </div>
-
-                <Link
-                  href="/jobs"
-                  className="rounded-lg bg-white px-4 py-2 text-xs font-medium text-black transition hover:bg-gray-200"
-                >
-                  View Job
-                </Link>
-              </div>
-            </div>
-
-            {/* Job 2 */}
-
-            <div className="group rounded-2xl border border-white/10 bg-[#111115] p-6 transition hover:border-blue-500/30">
-              <div className="flex justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white p-2">
-                    <Image
-                      width={56}
-                      height={56}
-                      src="https://i.ibb.co/8gcgqHtw/apple.png"
-                      alt="Apple"
-                      className="h-full w-full object-contain"
-                    />
+                    <span className="rounded-md bg-white/5 px-3 py-1.5 text-xs text-gray-300 capitalize">
+                      {job.jobCategory}
+                    </span>
                   </div>
 
-                  <div>
-                    <h3 className="font-medium">Machine Learning Engineer</h3>
+                  <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
+                    <div>
+                      <p className="text-sm font-medium">
+                        ${job.minSalary} - ${job.maxSalary}
+                      </p>
 
-                    <p className="mt-1 text-xs text-gray-500">
-                      Apple · On-site
-                    </p>
+                      <p className="mt-1 text-xs text-gray-400">
+                        Annual salary
+                      </p>
+                    </div>
+
+                    <Link
+                      href={`/jobs/${job._id}`}
+                      className="rounded-lg bg-white px-4 py-2 text-xs font-medium text-black transition hover:bg-gray-200"
+                    >
+                      View Job
+                    </Link>
                   </div>
                 </div>
-
-                <span className="rounded-full bg-blue-500/10 h-fit px-2 py-1 text-xs font-medium text-blue-400">
-                  Full-time
-                </span>
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                <span className="rounded-md bg-white/5 px-3 py-1.5 text-xs text-gray-400">
-                  Machine Learning
-                </span>
-
-                <span className="rounded-md bg-white/5 px-3 py-1.5 text-xs text-gray-400">
-                  Python
-                </span>
-
-                <span className="rounded-md bg-white/5 px-3 py-1.5 text-xs text-gray-400">
-                  AI
-                </span>
-              </div>
-
-              <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
-                <div>
-                  <p className="text-sm font-medium">$140k - $195k</p>
-
-                  <p className="mt-1 text-[10px] text-gray-600">
-                    Annual salary
-                  </p>
-                </div>
-
-                <Link
-                  href="/jobs"
-                  className="rounded-lg bg-white px-4 py-2 text-xs font-medium text-black transition hover:bg-gray-200"
-                >
-                  View Job
-                </Link>
-              </div>
-            </div>
-          </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </section>
 

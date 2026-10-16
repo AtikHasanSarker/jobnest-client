@@ -49,6 +49,7 @@ const JobFilters = ({ jobs = [], filters, onFiltersChange }) => {
               value={filters.search}
               onChange={(event) => handleChange("search", event.target.value)}
               placeholder="Search jobs by title, company or keyword..."
+              className="min-w-0 truncate text-xs"
             />
           </InputGroup>
         </TextField>
@@ -63,7 +64,7 @@ const JobFilters = ({ jobs = [], filters, onFiltersChange }) => {
           <Label className="text-muted">Job Category</Label>
 
           <Select.Trigger>
-            <Select.Value>
+            <Select.Value className="text-xs">
               {filters.category
                 ? formatCategory(filters.category)
                 : "All categories"}
@@ -144,17 +145,17 @@ const JobFilters = ({ jobs = [], filters, onFiltersChange }) => {
           <Label className="text-muted">Job Type</Label>
 
           <Select.Trigger>
-            <Select.Value>
+            <Select.Value className="text-xs">
               {filters.jobType
                 ? formatCategory(filters.jobType.replace("-", " "))
-                : "All job types"}
+                : "All types"}
             </Select.Value>
 
             <Select.Indicator />
           </Select.Trigger>
 
           <Select.Popover>
-            <ListBox>
+            <ListBox className="text-xs">
               <ListBox.Item id="full-time" textValue="Full-time">
                 <Label>Full-time</Label>
                 <ListBox.ItemIndicator />

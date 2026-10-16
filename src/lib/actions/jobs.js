@@ -17,3 +17,7 @@ export const getJobs = async (queryString) => {
 export const getJobById = async (id) => {
   return serverFetch(`jobs/${id}`);
 };
+
+export const getFeaturedJobs = async () => {
+  return serverFetch("featured-jobs");
+};

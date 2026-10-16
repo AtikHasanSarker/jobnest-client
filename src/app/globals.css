@@ -1,2 +1,57 @@
 @import "tailwindcss";
-@import "@heroui/styles"; 
+@import "@heroui/styles";
+
+/* Slider theme */
+.featured-jobs-swiper {
+  --swiper-theme-color: #6b03da;
+}
+
+/* Navigation arrows */
+.featured-jobs-swiper .swiper-button-prev,
+.featured-jobs-swiper .swiper-button-next {
+  width: 35px;
+  height: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  backdrop-filter: blur(12px);
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    transform 200ms ease;
+}
+
+.featured-jobs-swiper .swiper-button-prev:hover,
+.featured-jobs-swiper .swiper-button-next:hover {
+  background: #6b03da;
+  border-color: #6d3cff;
+  transform: scale(1.06);
+}
+
+/* Arrow icon */
+.featured-jobs-swiper .swiper-button-prev::after,
+.featured-jobs-swiper .swiper-button-next::after {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* Pagination dots */
+.featured-jobs-swiper .swiper-pagination-bullet {
+  width: 7px;
+  height: 7px;
+  background: #ffffff;
+  opacity: 0.5;
+  transition:
+    width 200ms ease,
+    background 200ms ease,
+    opacity 200ms ease;
+}
+
+/* Active dot */
+.featured-jobs-swiper .swiper-pagination-bullet-active {
+  width: 20px;
+  border-radius: 9999px;
+  background: #6b03da;
+  opacity: 1;
+}

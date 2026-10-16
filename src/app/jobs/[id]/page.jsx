@@ -57,11 +57,11 @@ const JobDetailPage = async ({ params }) => {
     const min = Number(job.minSalary).toLocaleString();
     const max = Number(job.maxSalary).toLocaleString();
 
-    return `${job.currency} ${min} – ${max}`;
+    return `${job.currency} ${min} - ${max}/year`;
   };
 
   return (
-    <main className="mx-auto container px-6 pt-32 pb-16">
+    <main className="mx-auto container px-6 pt-30 pb-16">
       {/* Back Button */}
       <BackButton />
 
@@ -69,7 +69,7 @@ const JobDetailPage = async ({ params }) => {
       <section className="rounded-3xl border border-default bg-background p-6 shadow-sm md:p-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           {/* Company + Job */}
-          <div className="flex items-start gap-5">
+          <div className="flex items-center gap-5">
             {/* Company Logo */}
             <div className="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-xl">
               <Image
@@ -86,11 +86,11 @@ const JobDetailPage = async ({ params }) => {
                 {job.companyName}
               </p>
 
-              <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+              <h1 className="text-2xl font-bold tracking-tight md:text-4xl">
                 {job.jobTitle}
               </h1>
 
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className="mt-2 text-xs text-muted-foreground">
                 {formatCategory(job.jobCategory)}
               </p>
             </div>
