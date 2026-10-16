@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import JobFilters from "@/components/jobs/JobFilters";
 import JobCard from "./JobCard";
 
-const JobListingContainer = ({ jobs }) => {
+const JobListingContainer = ({  jobs }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -17,38 +17,6 @@ const JobListingContainer = ({ jobs }) => {
     category: searchParams.get("category") || null,
     jobType: searchParams.get("jobType") || null,
   }));
-
-  // 1. Filter jobs only. No navigation inside useMemo.
-  const filteredJobs = useMemo(() => {
-    let result = [...jobs];
-
-    // Search
-    const search = (filters.search ?? "").trim().toLowerCase();
-
-    if (search) {
-      result = result.filter((job) => {
-        return (
-          job.jobTitle?.toLowerCase().includes(search) ||
-          job.companyName?.toLowerCase().includes(search) ||
-          job.jobCategory?.toLowerCase().includes(search) ||
-          job.requirements?.toLowerCase().includes(search) ||
-          job.responsibilities?.toLowerCase().includes(search)
-        );
-      });
-    }
-
-    // Category
-    if (filters.category) {
-      result = result.filter((job) => job.jobCategory === filters.category);
-    }
-
-    // Job type
-    if (filters.jobType) {
-      result = result.filter((job) => job.jobType === filters.jobType);
-    }
-
-    return result;
-  }, [jobs, filters]);
 
   // 2. Update URL when filters change
   const currentQuery = searchParams.toString();
@@ -61,7 +29,7 @@ const JobListingContainer = ({ jobs }) => {
     }
 
     if (filters.category) {
-      params.set("category", filters.category);
+      params.set("jobCategory", filters.category);
     }
 
     if (filters.jobType) {
@@ -88,16 +56,16 @@ const JobListingContainer = ({ jobs }) => {
         <p className="text-sm text-muted-foreground">
           Showing{" "}
           <span className="font-semibold text-foreground">
-            {filteredJobs.length}
+            {jobs.length}
           </span>{" "}
-          {filteredJobs.length === 1 ? "job" : "jobs"}
+          {jobs.length === 1 ? "job" : "jobs"}
         </p>
       </div>
 
       {/* Job Cards */}
-      {filteredJobs.length > 0 ? (
+      {jobs.length > 0 ? (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {filteredJobs.map((job) => (
+          {jobs.map((job) => (
             <JobCard key={job._id} job={job} />
           ))}
         </div>

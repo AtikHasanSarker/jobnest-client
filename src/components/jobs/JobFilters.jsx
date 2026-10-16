@@ -55,6 +55,7 @@ const JobFilters = ({ jobs = [], filters, onFiltersChange }) => {
 
         {/* ================= Filters ================= */}
         {/* ---------- Category ---------- */}
+
         <Select
           value={filters.category}
           onChange={(value) => handleChange("category", value)}
@@ -73,13 +74,64 @@ const JobFilters = ({ jobs = [], filters, onFiltersChange }) => {
 
           <Select.Popover>
             <ListBox>
-              {categories.map((category) => (
-                <ListBox.Item key={category} id={category} textValue={category}>
-                  <Label>{formatCategory(category)}</Label>
+              <ListBox.Item
+                id="software development"
+                textValue="Software Development"
+              >
+                <Label>Software Development</Label>
+                <ListBox.ItemIndicator />
+              </ListBox.Item>
 
-                  <ListBox.ItemIndicator />
-                </ListBox.Item>
-              ))}
+              <ListBox.Item id="engineering" textValue="Engineering">
+                <Label>Engineering</Label>
+                <ListBox.ItemIndicator />
+              </ListBox.Item>
+
+              <ListBox.Item id="cloud computing" textValue="Cloud Computing">
+                <Label>Cloud Computing</Label>
+                <ListBox.ItemIndicator />
+              </ListBox.Item>
+
+              <ListBox.Item id="data science" textValue="Data Science">
+                <Label>Data Science</Label>
+                <ListBox.ItemIndicator />
+              </ListBox.Item>
+
+              <ListBox.Item
+                id="artificial intelligence"
+                textValue="Artificial Intelligence"
+              >
+                <Label>Artificial Intelligence</Label>
+                <ListBox.ItemIndicator />
+              </ListBox.Item>
+
+              <ListBox.Item id="design" textValue="Design">
+                <Label>Design</Label>
+                <ListBox.ItemIndicator />
+              </ListBox.Item>
+
+              <ListBox.Item
+                id="project management"
+                textValue="Project Management"
+              >
+                <Label>Project Management</Label>
+                <ListBox.ItemIndicator />
+              </ListBox.Item>
+
+              <ListBox.Item id="management" textValue="Management">
+                <Label>Management</Label>
+                <ListBox.ItemIndicator />
+              </ListBox.Item>
+
+              <ListBox.Item id="marketing" textValue="Marketing">
+                <Label>Marketing</Label>
+                <ListBox.ItemIndicator />
+              </ListBox.Item>
+
+              <ListBox.Item id="research" textValue="Research">
+                <Label>Research</Label>
+                <ListBox.ItemIndicator />
+              </ListBox.Item>
             </ListBox>
           </Select.Popover>
         </Select>

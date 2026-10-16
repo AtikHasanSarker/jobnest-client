@@ -2,8 +2,11 @@ import JobListingContainer from "@/components/jobs/JobListingContainer";
 import { getJobs } from "@/lib/actions/jobs";
 
 
-const JobsPage = async () => {
-  const jobs = await getJobs();
+const JobsPage = async ({ searchParams }) => {
+  const filters = await searchParams;
+  const querySearch = new URLSearchParams(filters);
+  const queryString = querySearch.toString();
+  const jobs = await getJobs(queryString);
 
   return (
     <section className="mx-auto container px-6 pt-50 py-10">
