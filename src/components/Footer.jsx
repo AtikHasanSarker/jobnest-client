@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FaFacebookF, FaPinterestP, FaLinkedinIn } from "react-icons/fa";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -10,17 +11,21 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           {/* Left Side */}
           <div>
-            <h2 className="text-4xl font-extrabold">
-              <span className="text-sky-500">hire</span>
-              <span className="text-orange-500">loop</span>
-            </h2>
+            <Image
+              src="/nav-logo.png"
+              alt="JobNest Logo"
+              width={160}
+              height={64}
+              priority
+              className="h-auto w-60 object-contain"
+            />
 
-            <p className="mt-6 max-w-sm text-sm leading-7 text-gray-500">
+            <p className="mt-4 max-w-sm text-sm leading-7 text-gray-500">
               The AI-native career platform. Built for people who take their
               work seriously.
             </p>
 
-            <div className="mt-16 flex items-center gap-3">
+            <div className="mt-8 flex items-center gap-3">
               <Link
                 href="#"
                 className="flex h-10 w-10 items-center justify-center rounded-md bg-zinc-900 transition hover:bg-zinc-800"
@@ -77,7 +82,7 @@ export default function Footer() {
           {/* Navigations */}
           <div>
             <h3 className="mb-6 text-sm font-semibold text-indigo-500">
-              Navigations
+              Navigation
             </h3>
 
             <ul className="space-y-4 text-sm">
@@ -94,6 +99,11 @@ export default function Footer() {
               <li>
                 <Link href="#" className="hover:text-white">
                   Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  About Us
                 </Link>
               </li>
             </ul>
@@ -114,6 +124,11 @@ export default function Footer() {
               <li>
                 <Link href="#" className="hover:text-white">
                   Newsroom
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white">
+                  Blog
                 </Link>
               </li>
             </ul>

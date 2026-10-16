@@ -2,26 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
 import globe from "../../public/images/globe.png";
-
 import {
   IoLocationOutline,
   IoSearchOutline,
   IoArrowForward,
   IoSparklesOutline,
 } from "react-icons/io5";
-
 import { HiOutlineBriefcase, HiOutlineBuildingOffice2 } from "react-icons/hi2";
-
 import {
   MdOutlinePersonSearch,
   MdOutlineStarRate,
   MdOutlineVerified,
 } from "react-icons/md";
-
 import { TbWorld } from "react-icons/tb";
 import { FiArrowUpRight } from "react-icons/fi";
+import { getBannerCompany } from "@/lib/actions/companies";
+import { useEffect, useState } from "react";
+import Marquee from "react-fast-marquee";
 
 const stats = [
   {
@@ -93,20 +91,17 @@ const categories = [
   },
 ];
 
-const companies = [
-  {
-    name: "Airbnb",
-    logo: "https://i.ibb.co/B5pj8B5x/airbnb.png",
-    jobs: "124 open jobs",
-  },
-  {
-    name: "Apple",
-    logo: "https://i.ibb.co/8gcgqHtw/apple.png",
-    jobs: "218 open jobs",
-  },
-];
 
 export default function Banner() {
+  const [companies, setCompanies] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getBannerCompany();
+      setCompanies(data);
+    };
+    fetchData();
+  }, [setCompanies]);
+
   return (
     <main className="overflow-hidden bg-[#050507] text-white">
       <section className="relative min-h-225 overflow-hidden">
@@ -222,7 +217,7 @@ export default function Banner() {
 
                 {/* Search button */}
 
-                <button className="flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-violet-600 to-blue-600 px-7 py-4 text-sm font-medium transition hover:scale-[1.02] hover:from-violet-500 hover:to-blue-500">
+                <button className="flex items-center justify-center gap-2 cursor-pointer rounded-xl bg-linear-to-r from-violet-600 to-blue-600 px-7 py-4 text-sm font-medium transition hover:scale-[1.02] hover:from-violet-500 hover:to-blue-500">
                   <IoSearchOutline className="text-xl" />
                   Search Jobs
                 </button>
@@ -410,7 +405,9 @@ export default function Banner() {
               <div className="flex justify-between">
                 <div className="flex gap-4">
                   <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white p-2">
-                    <img
+                    <Image
+                      width={56}
+                      height={56}
                       src="https://i.ibb.co/B5pj8B5x/airbnb.png"
                       alt="Airbnb"
                       className="h-full w-full object-contain"
@@ -469,7 +466,9 @@ export default function Banner() {
               <div className="flex justify-between">
                 <div className="flex gap-4">
                   <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white p-2">
-                    <img
+                    <Image
+                      width={56}
+                      height={56}
                       src="https://i.ibb.co/8gcgqHtw/apple.png"
                       alt="Apple"
                       className="h-full w-full object-contain"
@@ -553,22 +552,22 @@ export default function Banner() {
             <div className="mt-8 grid gap-5 sm:grid-cols-2">
               {[
                 [
-                  <MdOutlineVerified />,
+                  <MdOutlineVerified key="verified-icon" />,
                   "Verified Companies",
                   "Discover trusted employers.",
                 ],
                 [
-                  <IoSearchOutline />,
+                  <IoSearchOutline key="search-icon" />,
                   "Smarter Discovery",
                   "Find roles that match your skills.",
                 ],
                 [
-                  <TbWorld />,
+                  <TbWorld key="world-icon" />,
                   "Global Opportunities",
                   "Remote and international jobs.",
                 ],
                 [
-                  <HiOutlineBriefcase />,
+                  <HiOutlineBriefcase key="briefcase-icon" />,
                   "Application Tracking",
                   "Keep every application organized.",
                 ],
@@ -597,7 +596,9 @@ export default function Banner() {
             <div className="absolute inset-0 rounded-[40px] bg-linear-to-br from-violet-600/20 via-blue-600/10 to-transparent blur-3xl" />
 
             <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-[#0d0d12] p-4">
-              <img
+              <Image
+                width={56}
+                height={56}
                 src="https://remotegenie.ai/blog/the-ultimate-guide-to-remote-software-engineering-jobs.png"
                 alt="Remote career opportunities"
                 className="w-full rounded-2xl opacity-90"
@@ -628,43 +629,42 @@ export default function Banner() {
       ====================================================== */}
 
       <section className="bg-[#09090c] py-24">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-7xl">
           <div className="text-center">
-            <p className="text-xs uppercase tracking-[0.2em] text-gray-600">
+            <p className="text-xs uppercase tracking-[0.2em] text-green-500">
               Trusted employers
             </p>
 
-            <h2 className="mt-3 text-3xl font-semibold">
+            <h2 className="mt-3 mb-5 text-3xl font-semibold">
               Build your future with leading companies
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-2">
+          <Marquee speed={60} pauseOnHover={true} gradient={true} gradientColor="black">
             {companies.map((company) => (
               <div
-                key={company.name}
-                className="flex items-center justify-between rounded-2xl border border-white/10 bg-[#111115] p-6"
+                key={company._id}
+                className="flex items-center justify-between mr-5 rounded-2xl border border-white/10 bg-[#111115] p-6"
               >
                 <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white p-2">
-                    <img
+                  <div className="flex h-14 w-14 items-center justify-center rounded-xl">
+                    <Image
+                      width={56}
+                      height={56}
                       src={company.logo}
                       alt={company.name}
-                      className="h-full w-full object-contain"
+                      className="h-full w-full object-contain rounded-xl"
                     />
                   </div>
-
                   <div>
                     <h3 className="font-medium">{company.name}</h3>
-
-                    <p className="mt-1 text-xs text-gray-500">{company.jobs}</p>
+                    <p className="mt-1 text-xs text-gray-500">3 Jobs
+                    </p>
                   </div>
                 </div>
-
-                <FiArrowUpRight className="text-gray-600" />
               </div>
             ))}
-          </div>
+          </Marquee>
         </div>
       </section>
 

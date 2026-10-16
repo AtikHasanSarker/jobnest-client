@@ -8,6 +8,10 @@ export const createCompany = async (newCompanyData) => {
   return serverMutation('companies', newCompanyData);
 };
 
+export const getBannerCompany = async () => {
+  return serverFetch('companies2');
+};
+
 export const getCompanies = async () => {
   return protectedServerFetch("companies");
 }
