@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import globe from "../../public/images/globe.png";
 import {
   IoLocationOutline,
   IoSearchOutline,
@@ -56,41 +55,46 @@ const categories = [
   {
     title: "Software Development",
     jobs: "12,450 jobs",
+    image: "/images/software-development.jpg",
     icon: "⌘",
     linear: "from-blue-500/20 to-cyan-500/10",
   },
   {
     title: "AI & Data",
     jobs: "8,230 jobs",
+    image: "/images/ai&data.jpg",
     icon: "✦",
     linear: "from-violet-500/20 to-purple-500/10",
   },
   {
     title: "Design & Creative",
     jobs: "5,840 jobs",
+    image: "/images/design.jpg",
     icon: "◈",
     linear: "from-pink-500/20 to-rose-500/10",
   },
   {
     title: "Marketing",
     jobs: "4,920 jobs",
+    image: "/images/marketing.jpg",
     icon: "↗",
     linear: "from-orange-500/20 to-amber-500/10",
   },
   {
-    title: "Finance",
+    title: "Engineering",
     jobs: "3,710 jobs",
+    image: "/images/engineering.jpg",
     icon: "$",
     linear: "from-emerald-500/20 to-green-500/10",
   },
   {
     title: "Research",
     jobs: "2,650 jobs",
+    image: "/images/research.jpg",
     icon: "⌕",
     linear: "from-sky-500/20 to-blue-500/10",
   },
 ];
-
 
 export default function Banner() {
   const [companies, setCompanies] = useState([]);
@@ -103,39 +107,23 @@ export default function Banner() {
   }, [setCompanies]);
 
   return (
-    <main className="overflow-hidden bg-[#050507] text-white">
+    <main className="overflow-hidden">
       <section className="relative min-h-225 overflow-hidden">
         {/* Background linears */}
 
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 -top-75 h-[700px] w-225 -translate-x-1/2 rounded-full bg-violet-600/20 blur-[140px]" />
+          <div className="absolute left-1/2 -top-10 h-[500px] w-225 -translate-x-1/2 rounded-full bg-violet-600/20 blur-[140px]" />
+
+          <div className="absolute left-0 top-0 h-[700px] w-225 -translate-x-1/2 rounded-full bg-[#430442] blur-[140px]" />
+
+          <div className="absolute right-0 top-0 h-[700px] w-225 translate-x-1/2 rounded-full bg-[#430442] blur-[140px]" />
 
           <div className="absolute right-[-200px] top-[300px] h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[140px]" />
 
           <div className="absolute bottom-[-200px] left-[-200px] h-[500px] w-[500px] rounded-full bg-fuchsia-600/10 blur-[140px]" />
         </div>
 
-        {/* Grid */}
-
-        <div
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage:
-              "linear-linear(rgba(255,255,255,.15) 1px, transparent 1px), linear-linear(90deg, rgba(255,255,255,.15) 1px, transparent 1px)",
-            backgroundSize: "70px 70px",
-          }}
-        />
-
-        {/* Globe */}
-
-        <div className="pointer-events-none absolute inset-0 w-full opacity-70">
-          <Image
-            src={globe}
-            alt="Global Job Network"
-            priority
-            className="w-full"
-          />
-        </div>
+        <div className="absolute left-1/2 -bottom-25 h-[500px] w-225 -translate-x-1/2 rounded-full bg-violet-600/20 blur-[140px]" />
 
         {/* Hero content */}
 
@@ -143,14 +131,21 @@ export default function Banner() {
           {/* Badge */}
 
           <div className="flex justify-center">
-            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs text-gray-300 shadow-2xl backdrop-blur-xl">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-violet-500/20 text-violet-300">
-                <IoSparklesOutline />
+            <div className="inline-flex items-center gap-3 rounded-full border border-violet-400/20 bg-white/[0.04] px-4 py-2 text-xs shadow-2xl shadow-violet-500/10 backdrop-blur-xl sm:px-5 sm:py-2.5">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-violet-400/20 bg-violet-500/15 text-violet-300">
+                <IoSparklesOutline className="h-4 w-4" />
               </span>
 
-              <span>
-                <strong className="text-white">50,000+</strong> new jobs added
-                this month
+              <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <strong className="font-semibold text-white">
+                  Job<span className="text-violet-400">Nest</span>
+                </strong>
+
+                <span className="text-gray-500">/</span>
+
+                <span className="text-gray-300">
+                  Your Next Career Starts Here
+                </span>
               </span>
             </div>
           </div>
@@ -158,7 +153,7 @@ export default function Banner() {
           {/* Heading */}
 
           <div className="mx-auto mt-8 max-w-5xl text-center">
-            <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl md:text-7xl">
+            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
               Find work that
               <span className="block bg-linear-to-r from-violet-400 via-fuchsia-400 to-blue-400 bg-clip-text text-transparent">
                 moves you forward.
@@ -241,9 +236,34 @@ export default function Banner() {
             </div>
           </div>
 
+          {/* =====================================================
+          STATS
+      ====================================================== */}
+
+          <section className="relative mt-15 md:mt-40 pb-10">
+            <div className="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4 gap-8">
+              {stats.map((item, index) => (
+                <div
+                  key={item.label}
+                  className={`group items-center rounded-xl px-6 py-8 md:px-10 border bg-mist-900/80`}
+                >
+                  <div className="flex h-14 w-14 mb-8 items-center justify-center rounded-xl bg-linear-to-br from-violet-500/20 to-blue-500/10 text-2xl">
+                    {item.icon}
+                  </div>
+
+                  <div>
+                    <p className="text-3xl font-semibold">{item.value}</p>
+
+                    <p className="mt-2">{item.label}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
           {/* Floating visual cards */}
 
-          <div className="pointer-events-none absolute left-0 top-160 hidden xl:block">
+          <div className="pointer-events-none absolute left-0 top-150 hidden xl:block">
             <div className="rounded-2xl border border-white/10 bg-[#111116]/90 p-4 shadow-2xl backdrop-blur-xl">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10 text-violet-400">
@@ -285,37 +305,10 @@ export default function Banner() {
       </section>
 
       {/* =====================================================
-          STATS
-      ====================================================== */}
-
-      <section className="relative border-y border-white/10 bg-[#09090c]">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4">
-          {stats.map((item, index) => (
-            <div
-              key={item.label}
-              className={`group flex items-center gap-4 px-6 py-8 md:px-10 ${
-                index !== stats.length - 1 ? "border-r border-white/10" : ""
-              }`}
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-violet-500/20 to-blue-500/10 text-xl text-violet-400">
-                {item.icon}
-              </div>
-
-              <div>
-                <p className="text-2xl font-semibold">{item.value}</p>
-
-                <p className="mt-1 text-xs text-gray-500">{item.label}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* =====================================================
           CATEGORIES
       ====================================================== */}
 
-      <section className="relative py-28">
+      <section className="relative py-20">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
@@ -342,14 +335,28 @@ export default function Banner() {
             </Link>
           </div>
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((category) => (
               <Link
                 href={`/jobs?category=${encodeURIComponent(category.title)}`}
                 key={category.title}
-                className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br ${category.linear} p-6 transition duration-300 hover:-translate-y-1 hover:border-white/20`}
+                className={`group relative overflow-hidden rounded-2xl border border-white/10 p-6 transition duration-300 hover:-translate-y-1 hover:border-white/20`}
               >
-                <div className="absolute right-[-30px] top-[-30px] h-32 w-32 rounded-full bg-white/[0.03] blur-2xl" />
+                <div
+                  className="absolute inset-0 -z-20 opacity-70 transition duration-300 group-hover:opacity-60"
+                  style={{
+                    backgroundImage: `url('${category.image}')`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                />
+
+                <div
+                  className={`absolute inset-0 -z-10 bg-linear-to-br ${category.linear} opacity-90`}
+                />
+
+                {/* Decorative blur */}
+                <div className="absolute right-[-30px] top-[-30px] -z-0 h-32 w-32 rounded-full bg-white/[0.04] blur-2xl" />
 
                 <div className="flex items-start justify-between">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-black/20 text-xl">
@@ -359,9 +366,7 @@ export default function Banner() {
                   <FiArrowUpRight className="text-gray-600 transition group-hover:text-white" />
                 </div>
 
-                <h3 className="mt-8 text-lg font-medium">{category.title}</h3>
-
-                <p className="mt-2 text-xs text-gray-500">{category.jobs}</p>
+                <h3 className="mt-16 text-xl font-medium">{category.title}</h3>
               </Link>
             ))}
           </div>
@@ -403,7 +408,7 @@ export default function Banner() {
 
             <div className="group rounded-2xl border border-white/10 bg-[#111115] p-6 transition hover:border-violet-500/30">
               <div className="flex justify-between">
-                <div className="flex gap-4">
+                <div className="flex justify-between items-center gap-4">
                   <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white p-2">
                     <Image
                       width={56}
@@ -423,7 +428,7 @@ export default function Banner() {
                   </div>
                 </div>
 
-                <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-[10px] text-emerald-400">
+                <span className="rounded-full bg-emerald-500/10 h-fit px-3 py-1 text-xs text-emerald-400">
                   Remote
                 </span>
               </div>
@@ -444,7 +449,7 @@ export default function Banner() {
 
               <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
                 <div>
-                  <p className="text-sm font-medium">$120k – $165k</p>
+                  <p className="text-sm font-medium">$120k - $165k</p>
 
                   <p className="mt-1 text-[10px] text-gray-600">
                     Annual salary
@@ -464,7 +469,7 @@ export default function Banner() {
 
             <div className="group rounded-2xl border border-white/10 bg-[#111115] p-6 transition hover:border-blue-500/30">
               <div className="flex justify-between">
-                <div className="flex gap-4">
+                <div className="flex items-center gap-4">
                   <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white p-2">
                     <Image
                       width={56}
@@ -484,7 +489,7 @@ export default function Banner() {
                   </div>
                 </div>
 
-                <span className="rounded-full bg-blue-500/10 px-3 py-1 text-[10px] text-blue-400">
+                <span className="rounded-full bg-blue-500/10 h-fit px-2 py-1 text-xs font-medium text-blue-400">
                   Full-time
                 </span>
               </div>
@@ -505,7 +510,7 @@ export default function Banner() {
 
               <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
                 <div>
-                  <p className="text-sm font-medium">$140k – $195k</p>
+                  <p className="text-sm font-medium">$140k - $195k</p>
 
                   <p className="mt-1 text-[10px] text-gray-600">
                     Annual salary
@@ -640,7 +645,12 @@ export default function Banner() {
             </h2>
           </div>
 
-          <Marquee speed={60} pauseOnHover={true} gradient={true} gradientColor="black">
+          <Marquee
+            speed={60}
+            pauseOnHover={true}
+            gradient={true}
+            gradientColor="black"
+          >
             {companies.map((company) => (
               <div
                 key={company._id}
@@ -658,8 +668,7 @@ export default function Banner() {
                   </div>
                   <div>
                     <h3 className="font-medium">{company.name}</h3>
-                    <p className="mt-1 text-xs text-gray-500">3 Jobs
-                    </p>
+                    <p className="mt-1 text-xs text-gray-500">3 Jobs</p>
                   </div>
                 </div>
               </div>

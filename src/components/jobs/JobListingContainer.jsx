@@ -86,7 +86,14 @@ const JobListingContainer = ({  jobs, total }) => {
   return (
     <>
       {/* Filters */}
-      <JobFilters jobs={jobs} filters={filters} onFiltersChange={setFilters} />
+      <JobFilters
+        jobs={jobs}
+        filters={filters}
+        onFiltersChange={(nextFilters) => {
+          setFilters(nextFilters);
+          setPage(1);
+        }}
+      />
 
       {/* Result Count */}
       <div className="mb-6 mt-8">

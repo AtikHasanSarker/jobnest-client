@@ -37,8 +37,8 @@ export default function Navbar() {
   };
 
   return (
-    <div className="px-6 absolute top-0 left-0 right-0 z-50 backdrop-blur-xl">
-      <nav className="w-full max-w-7xl py-10 mx-auto px-6">
+    <div className="px-6 absolute top-0 left-0 right-0 z-50">
+      <nav className="w-full max-w-7xl py-8 mx-auto">
         <div className="flex h-16 items-center justify-between rounded-2xl border border-white/10 bg-white/3 px-6 backdrop-blur-xl">
           {/* Logo */}
           <Link href="/" className="flex items-center">
