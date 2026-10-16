@@ -26,7 +26,7 @@ export default function JobCard({ job }) {
 
   return (
     <Card
-      className="w-full max-w-2xl rounded-2xl border border-default bg-background shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:bg-mist-900"
+      className="w-full max-w-2xl rounded-2xl border border-default bg-background shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:bg-mist-900 hover:border-violet-900"
     >
       {/* Header */}
       <Card.Header className="flex items-start justify-between gap-4 p-2 pb-2">

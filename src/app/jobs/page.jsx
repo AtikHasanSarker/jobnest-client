@@ -5,8 +5,13 @@ import { getJobs } from "@/lib/actions/jobs";
 const JobsPage = async ({ searchParams }) => {
   const filters = await searchParams;
   const querySearch = new URLSearchParams(filters);
+
+  if (!querySearch.has("page")) {
+    querySearch.set("page", "1");
+  }
+
   const queryString = querySearch.toString();
-  const jobs = await getJobs(queryString);
+  const {jobs, total} = await getJobs(queryString);
 
   return (
     <section className="mx-auto container px-6 pt-50 py-10">
@@ -19,7 +24,7 @@ const JobsPage = async ({ searchParams }) => {
         </p>
       </div>
 
-      <JobListingContainer jobs={jobs} />
+      <JobListingContainer jobs={jobs} total={total} />
     </section>
   );
 };

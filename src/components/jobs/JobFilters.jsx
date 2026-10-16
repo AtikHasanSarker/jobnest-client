@@ -185,7 +185,7 @@ const JobFilters = ({ jobs = [], filters, onFiltersChange }) => {
           <button
             type="button"
             onClick={clearFilters}
-            className="inline-flex items-center gap-2 text-sm font-medium text-danger transition-opacity hover:opacity-80"
+            className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-danger transition-opacity hover:opacity-90"
           >
             <Xmark className="size-4" />
             Clear filters
