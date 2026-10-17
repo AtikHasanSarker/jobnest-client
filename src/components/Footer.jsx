@@ -137,7 +137,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-sm text-gray-600 md:flex-row">
-          <p>Copyright 2024 — Programming Hero</p>
+          <p>Copyright 2026 — All rights reserved</p>
 
           <div className="flex gap-4">
             <Link href="#" className="hover:text-white">

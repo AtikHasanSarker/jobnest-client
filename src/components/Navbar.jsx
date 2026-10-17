@@ -48,6 +48,7 @@ export default function Navbar() {
               width={150}
               height={40}
               className="w-32 h-auto"
+              loading="eager"
             />
           </Link>
 
@@ -106,72 +107,68 @@ export default function Navbar() {
 
             {/* Auth Actions */}
             <div>
-              {user ? (
-                <div>
-                  {isPending ? (
-                    <p>loading...</p>
-                  ) : (
-                    <Dropdown>
-                      <Button aria-label="Menu" className="p-0 w-fit">
-                        <Avatar>
-                          <Avatar.Image
-                            referrerPolicy="no-referrer"
-                            alt={user?.name}
-                            src={user?.image}
-                          />
-                          <Avatar.Fallback>{user?.name[0]}</Avatar.Fallback>
-                        </Avatar>
-                      </Button>
+              {isPending ? (
+                <div className="h-10 w-10 animate-pulse rounded-full bg-white/10" />
+              ) : user ? (
+                <Dropdown>
+                  <Button aria-label="Menu" className="p-0 w-fit">
+                    <Avatar>
+                      <Avatar.Image
+                        referrerPolicy="no-referrer"
+                        alt={user?.name}
+                        src={user?.image}
+                      />
+                      <Avatar.Fallback>{user?.name[0]}</Avatar.Fallback>
+                    </Avatar>
+                  </Button>
 
-                      <Dropdown.Popover>
-                        <Dropdown.Menu
-                          onAction={(key) => console.log(`Selected: ${key}`)}
-                        >
-                          <Dropdown.Item id="userName" textValue={user?.name}>
-                            <Label className="font-semibold">
-                              <p className="font-medium mr-3">
-                                Hello, {user?.name.split(" ")[0]}
-                              </p>
-                            </Label>
-                          </Dropdown.Item>
+                  <Dropdown.Popover>
+                    <Dropdown.Menu
+                      onAction={(key) => console.log(`Selected: ${key}`)}
+                    >
+                      <Dropdown.Item id="userName" textValue={user?.name}>
+                        <Label className="font-semibold">
+                          <p className="font-medium mr-3">
+                            Hello, {user?.name.split(" ")[0]}
+                          </p>
+                        </Label>
+                      </Dropdown.Item>
 
-                          <Dropdown.Item
-                            id="dashboard"
-                            onClick={() => router.push(dashboardLinks[user?.role])}
-                            textValue="Dashboard"
-                          >
-                            <Label className="cursor-pointer flex gap-2 items-center font-semibold">
-                              <LayoutDashboard size={16} />
-                              Dashboard
-                            </Label>
-                          </Dropdown.Item>
+                      <Dropdown.Item
+                        id="dashboard"
+                        onClick={() => router.push(dashboardLinks[user?.role])}
+                        textValue="Dashboard"
+                      >
+                        <Label className="cursor-pointer flex gap-2 items-center font-semibold">
+                          <LayoutDashboard size={16} />
+                          Dashboard
+                        </Label>
+                      </Dropdown.Item>
 
-                          <Dropdown.Item
-                            id="profile"
-                            onClick={() => router.push("/profile")}
-                            textValue="Profile"
-                          >
-                            <Label className="cursor-pointer flex gap-2 items-center font-semibold">
-                              <AiOutlineUser />
-                              Profile
-                            </Label>
-                          </Dropdown.Item>
+                      <Dropdown.Item
+                        id="profile"
+                        onClick={() => router.push("/profile")}
+                        textValue="Profile"
+                      >
+                        <Label className="cursor-pointer flex gap-2 items-center font-semibold">
+                          <AiOutlineUser />
+                          Profile
+                        </Label>
+                      </Dropdown.Item>
 
-                          <Dropdown.Item
-                            id="logout"
-                            onClick={handleLogout}
-                            textValue="Logout"
-                          >
-                            <Label className="text-red-600 cursor-pointer flex gap-2 items-center font-semibold">
-                              <MdLogout />
-                              Logout
-                            </Label>
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown.Popover>
-                    </Dropdown>
-                  )}
-                </div>
+                      <Dropdown.Item
+                        id="logout"
+                        onClick={handleLogout}
+                        textValue="Logout"
+                      >
+                        <Label className="text-red-600 cursor-pointer flex gap-2 items-center font-semibold">
+                          <MdLogout />
+                          Logout
+                        </Label>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown.Popover>
+                </Dropdown>
               ) : (
                 <div className="hidden lg:flex items-center gap-6">
                   <Link

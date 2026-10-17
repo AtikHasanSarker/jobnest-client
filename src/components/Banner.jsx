@@ -507,7 +507,7 @@ export default function Banner() {
           WHY JOBNEST
       ====================================================== */}
 
-      <section className="relative overflow-hidden py-28">
+      <section className="relative overflow-hidden py-20">
         <div className="absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/10 blur-[140px]" />
 
         <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
@@ -607,7 +607,7 @@ export default function Banner() {
           TOP COMPANIES
       ====================================================== */}
 
-      <section className="bg-[#09090c] py-24">
+      <section className="bg-[#09090c] py-20">
         <div className="mx-auto max-w-7xl">
           <div className="text-center">
             <p className="text-xs uppercase tracking-[0.2em] text-green-500">
@@ -655,7 +655,7 @@ export default function Banner() {
           RECRUITER CTA
       ====================================================== */}
 
-      <section className="px-6 py-28">
+      <section className="px-6 py-20">
         <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] border border-violet-500/20 bg-linear-to-br from-violet-950/60 via-[#111116] to-blue-950/50 p-10 md:p-16">
           <div className="absolute right-[-100px] top-[-150px] h-[400px] w-[400px] rounded-full bg-violet-500/20 blur-[100px]" />
 
@@ -691,7 +691,7 @@ export default function Banner() {
           FINAL CTA
       ====================================================== */}
 
-      <section className="relative overflow-hidden py-32 text-center">
+      <section className="relative overflow-hidden py-20 text-center">
         <div className="absolute left-1/2 top-1/2 h-[400px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/15 blur-[130px]" />
 
         <div className="relative mx-auto max-w-3xl px-6">

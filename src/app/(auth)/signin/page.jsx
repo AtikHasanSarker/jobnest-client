@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button, Card, Separator } from "@heroui/react";
 import { Envelope, Eye, EyeSlash, ShieldKeyhole } from "@gravity-ui/icons";
 import { InputGroup, Label, TextField } from "@heroui/react";
-import { signIn } from "@/lib/auth-client";
+import { authClient, signIn } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -13,7 +13,7 @@ export default function SignInPage() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("redirect" || "/");
+  const redirectTo = searchParams.get("redirect") || `/`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +25,18 @@ export default function SignInPage() {
     });
     if (data) {
       toast.success("Sign In Successful! Redirecting...");
-      router.push(redirectTo);
+      const { data: sessionData, error: sessionError } =
+        await authClient.getSession();
+
+      if (sessionError || !sessionData?.user) {
+        toast.error("Unable to retrieve your session.");
+        return;
+      }
+
+      const redirect =
+        searchParams.get("redirect") || `/dashboard/${sessionData.user.role}`;
+
+      router.replace(redirect);
     } else {
       toast.error("Sign In Failed!");
     }

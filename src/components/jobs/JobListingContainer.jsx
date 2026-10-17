@@ -112,7 +112,7 @@ const JobListingContainer = ({  jobs, total }) => {
               <JobCard key={job._id} job={job} />
             ))}
           </div>
-          <Pagination>
+          <Pagination className="mx-auto w-max">
             <Pagination.Summary>
               Showing {startItem}-{endItem} of {totalItems} results
             </Pagination.Summary>
