@@ -16,7 +16,7 @@ import {
 } from "react-icons/md";
 import { TbWorld } from "react-icons/tb";
 import { FiArrowUpRight } from "react-icons/fi";
-import { getBannerCompany } from "@/lib/actions/companies";
+import { getCompanies } from "@/lib/actions/companies";
 import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import { getFeaturedJobs } from "@/lib/actions/jobs";
@@ -108,7 +108,7 @@ export default function Banner() {
   const [featuredJobs, setFeaturedJobs] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getBannerCompany();
+      const data = await getCompanies();
       setCompanies(data);
     };
     fetchData();
@@ -424,7 +424,7 @@ export default function Banner() {
             autoplay={{
               delay: 2500,
               disableOnInteraction: false,
-              pauseOnMouseEnter: true,
+              pauseOnMouseEnter: false,
             }}
             loop={featuredJobs?.length > 3}
             speed={700}
@@ -576,9 +576,9 @@ export default function Banner() {
 
             <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-[#0d0d12] p-4">
               <Image
-                width={56}
-                height={56}
-                src="https://remotegenie.ai/blog/the-ultimate-guide-to-remote-software-engineering-jobs.png"
+                width={100}
+                height={100}
+                src="/images/illustration.png"
                 alt="Remote career opportunities"
                 className="w-full rounded-2xl opacity-90"
               />
@@ -642,7 +642,7 @@ export default function Banner() {
                   </div>
                   <div>
                     <h3 className="font-medium">{company.name}</h3>
-                    <p className="mt-1 text-xs text-gray-500">3 Jobs</p>
+                    <p className="mt-1 text-xs text-gray-500">{company.jobCount} Jobs</p>
                   </div>
                 </div>
               </div>

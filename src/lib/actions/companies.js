@@ -8,12 +8,8 @@ export const createCompany = async (newCompanyData) => {
   return serverMutation('companies', newCompanyData);
 };
 
-export const getBannerCompany = async () => {
-  return serverFetch('companies2');
-};
-
 export const getCompanies = async () => {
-  return protectedServerFetch("companies");
+  return serverFetch("companies");
 }
 
 export const getRecruiterCompany = async (recruiterId) => {
@@ -31,4 +27,8 @@ export const updateCompany = async (id, data) => {
   const result = await serverMutation(`companies/${id}`, data, 'PATCH');
   revalidatePath("/dashboard/admin/companies");
   return result;
+};
+
+export const getJobsByCompany = async (id) => {
+  return serverFetch(`companies/${id}/jobs`);
 };

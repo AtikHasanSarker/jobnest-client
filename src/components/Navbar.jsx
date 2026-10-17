@@ -30,11 +30,19 @@ export default function Navbar() {
     admin: "/dashboard/admin",
   }
 
-  const handleLogout = async () => {
-    await authClient.signOut();
-    toast.success("Logout Successfully!");
-    router.push("/");
-  };
+const handleLogout = async () => {
+  const { error } = await authClient.signOut();
+
+  if (error) {
+    toast.error("Logout failed!");
+    return;
+  }
+
+  toast.success("Logout successful!");
+  setIsMenuOpen(false);
+  router.replace("/");
+  router.refresh();
+};
 
   return (
     <div className="px-6 absolute top-0 left-0 right-0 z-50">

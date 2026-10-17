@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Button, Card, Input } from "@heroui/react";
+import { Button, Card, Input, InputGroup } from "@heroui/react";
 
 import {
   Search,
@@ -111,21 +111,19 @@ const CompaniesClient = ({ companies = [] }) => {
 
         {/* Search */}
         <div className="mb-10 flex flex-col gap-3 rounded-xl border border-white/10 bg-[#1a1a1a] p-3 sm:flex-row sm:items-center">
-          <Input
-            aria-label="Search companies"
-            placeholder="Search by name, industry, or location..."
-            value={search}
-            onChange={(event) => handleSearch(event.target.value)}
-            startContent={
+          <InputGroup className="min-w-0 flex-1">
+            <InputGroup.Prefix>
               <Search className="size-4 shrink-0 text-zinc-400" />
-            }
-            className="min-w-0 flex-1"
-            classNames={{
-              inputWrapper:
-                "min-h-11 border-0 bg-transparent shadow-none data-[hover=true]:bg-transparent group-data-[focus=true]:bg-transparent",
-              input: "text-sm text-white placeholder:text-zinc-500",
-            }}
-          />
+            </InputGroup.Prefix>
+
+            <Input
+              aria-label="Search companies"
+              placeholder="Search by name, industry, or location..."
+              value={search}
+              onChange={(value) => handleSearch(value)}
+              className="min-h-11 border-0 bg-transparent text-sm text-white shadow-none"
+            />
+          </InputGroup>
 
           <Button
             onPress={() => setCurrentPage(1)}
@@ -163,8 +161,8 @@ const CompaniesClient = ({ companies = [] }) => {
                     <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-lg">
                       {logo ? (
                         <Image
-                        width={56}
-                        height={56}
+                          width={56}
+                          height={56}
                           src={logo}
                           alt={`${name} logo`}
                           className="size-full object-contain p-1.5"
