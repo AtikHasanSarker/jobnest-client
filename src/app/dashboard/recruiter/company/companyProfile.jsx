@@ -30,6 +30,7 @@ import {
 } from "@/components/style";
 import { createCompany } from "@/lib/actions/companies";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 export default function CompanyProfile({ recruiter, recruiterCompany }) {
   const [company, setCompany] = useState(recruiterCompany); 
@@ -173,7 +174,9 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
         <div className="border border-zinc-800 bg-zinc-950 rounded-2xl p-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-zinc-800">
             <div className="flex items-center gap-4">
-              <img
+              <Image
+                width={60}
+                height={60}
                 src={company.logo}
                 alt={company.name}
                 className="w-16 h-16 rounded-xl object-cover border border-zinc-800 bg-zinc-900"
@@ -456,9 +459,11 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
                       onChange={handleLogoUpload}
                       className="hidden"
                     />
-                    <div className="w-10 h-10 rounded-md bg-zinc-800 flex items-center justify-center text-zinc-400 group-hover:text-white transition-colors flex-shrink-0">
+                    <div className="w-10 h-10 rounded-md bg-zinc-800 flex items-center justify-center text-zinc-400 group-hover:text-white transition-colors shrink-0">
                       {logoUrl ? (
-                        <img
+                        <Image
+                          width={60}
+                          height={60}
                           src={logoUrl}
                           alt="Preview"
                           className="w-full h-full object-cover rounded-md"

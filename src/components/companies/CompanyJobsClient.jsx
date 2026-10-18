@@ -11,18 +11,12 @@ import {
 } from "lucide-react";
 
 import JobCard from "@/components/jobs/JobCard";
+import Image from "next/image";
 
-const CompanyJobsClient = ({ jobs = [] }) => {
+const CompanyJobsClient = ({ company, jobs }) => {
   const [search, setSearch] = useState("");
   const [jobType, setJobType] = useState("all");
   const [sortBy, setSortBy] = useState("latest");
-
-  const company = jobs[0]?.company || jobs[0]?.companyId || null;
-
-  const companyName =
-    typeof company === "string"
-      ? "Company"
-      : company?.name || company?.companyName || "Company";
 
   const filteredJobs = useMemo(() => {
     let result = [...jobs];
@@ -73,13 +67,13 @@ const CompanyJobsClient = ({ jobs = [] }) => {
   }, [jobs, search, jobType, sortBy]);
 
   return (
-    <main className="min-h-screen bg-[#111111] text-white">
+    <main className="min-h-screen pt-20">
       <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10">
         {/* Breadcrumb */}
         <div className="mb-7 flex items-center gap-2 text-sm text-zinc-500">
           <span>Companies</span>
           <span>/</span>
-          <span className="text-zinc-300">{companyName}</span>
+          <span className="text-zinc-300">{company?.name}</span>
         </div>
 
         {/* Company Header */}
@@ -88,8 +82,14 @@ const CompanyJobsClient = ({ jobs = [] }) => {
 
           <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-start gap-4">
-              <div className="flex size-16 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-[#111111]">
-                <Building2 className="size-7 text-violet-400" />
+              <div className="flex size-26 shrink-0 items-center justify-center">
+                <Image
+                  width={60}
+                  height={60}
+                  src={company?.logo}
+                  alt={`${company?.name} logo`}
+                  className="size-full object-contain rounded-2xl"
+                />
               </div>
 
               <div>
@@ -98,7 +98,7 @@ const CompanyJobsClient = ({ jobs = [] }) => {
                 </p>
 
                 <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-                  {companyName} Jobs
+                  {company?.name} Jobs
                 </h1>
 
                 <p className="mt-2 max-w-xl text-sm leading-6 text-zinc-400">
@@ -126,7 +126,7 @@ const CompanyJobsClient = ({ jobs = [] }) => {
           <div className="mb-5">
             <h2 className="text-xl font-semibold">Open Positions</h2>
             <p className="mt-1 text-sm text-zinc-400">
-              Find your next opportunity at {companyName}.
+              Find your next opportunity at {company?.name}.
             </p>
           </div>
 
@@ -225,7 +225,7 @@ const CompanyJobsClient = ({ jobs = [] }) => {
 
           {/* Job Cards */}
           {filteredJobs.length > 0 ? (
-            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:grid-cols-3">
               {filteredJobs.map((job, index) => (
                 <JobCard key={job?._id || job?.id || index} job={job} />
               ))}

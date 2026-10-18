@@ -32,3 +32,7 @@ export const updateCompany = async (id, data) => {
 export const getJobsByCompany = async (id) => {
   return serverFetch(`companies/${id}/jobs`);
 };
+
+export const getCompanyById = async (id) => {
+  return serverFetch(`companies/${id}`);
+};
