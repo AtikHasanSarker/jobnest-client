@@ -6,8 +6,8 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-gray-400">
-      <div className="mx-auto max-w-6xl px-6 py-16">
+    <footer className="text-gray-400">
+      <div className="mx-auto max-w-6xl px-6 py-15">
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           {/* Left Side */}
           <div>
@@ -20,7 +20,7 @@ export default function Footer() {
               className="h-auto w-60 object-contain"
             />
 
-            <p className="mt-4 max-w-sm text-sm leading-7 text-gray-500">
+            <p className="mt-1 max-w-sm text-sm leading-7">
               The AI-native career platform. Built for people who take their
               work seriously.
             </p>
@@ -136,7 +136,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-sm text-gray-600 md:flex-row">
+        <div className="mt-6 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-sm text-gray-600 md:flex-row">
           <p>Copyright 2026 — All rights reserved</p>
 
           <div className="flex gap-4">

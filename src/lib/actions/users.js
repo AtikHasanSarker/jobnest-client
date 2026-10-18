@@ -3,6 +3,8 @@
 import { headers } from "next/headers";
 import { auth } from "../auth";
 import { revalidatePath } from "next/cache";
+import { getUserSession } from "../api/core/session";
+import { serverMutation } from "../api/core/server";
 
 export const getUsersList = async () => {
     const users = await auth.api.listUsers({
@@ -27,4 +29,10 @@ export const updateUserRole = async (userId, role) => {
   });
   revalidatePath("/dashboard/admin/users");
   return data;
+}
+
+export const updateUser = async (userData) => {
+  const user = await getUserSession()
+  const userId = user?.id;
+  return serverMutation(`users/${userId}`, userData, 'PATCH');
 }
