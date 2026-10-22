@@ -122,6 +122,7 @@ export default function Banner() {
 
   return (
     <main className="overflow-hidden">
+      {/* Hero Banner */}
       <section className="relative isolate overflow-hidden bg-[#080b14]">
         {/* Background — same dark purple / blue aesthetic */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -202,7 +203,7 @@ export default function Banner() {
               </div>
             </div>
 
-            {/* RIGHT — Your cutout image */}
+            {/* RIGHT side*/}
             <div className="relative mx-auto w-full max-w-xl lg:ml-auto lg:mr-0 lg:max-w-none">
               {/* Image glow */}
               <div className="pointer-events-none absolute left-1/2 top-[42%] h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/25 blur-[100px] sm:h-[430px] sm:w-[430px]" />
@@ -210,7 +211,7 @@ export default function Banner() {
               <div className="pointer-events-none absolute right-[8%] top-[18%] size-24 rounded-full bg-blue-500/10 blur-3xl" />
 
               {/* Floating opportunity card */}
-              <div className="absolute left-0 top-[5%] z-20 hidden items-center gap-3 rounded-2xl border border-white/10 bg-[#151827]/90 p-3.5 shadow-2xl shadow-black/30 backdrop-blur-xl sm:flex xl:left-[-2%]">
+              <div className="absolute left-0 top-[15%] z-20 -rotate-8 hidden items-center gap-3 rounded-2xl border border-white/10 bg-[#151827]/90 p-3.5 shadow-2xl shadow-black/30 backdrop-blur-xl sm:flex xl:left-[-2%]">
                 <div className="flex size-10 items-center justify-center rounded-xl bg-violet-500/20 text-violet-300">
                   <IoSparklesOutline className="size-5" />
                 </div>
@@ -226,7 +227,7 @@ export default function Banner() {
               </div>
 
               {/* Floating career card */}
-              <div className="absolute right-0 top-[15%] z-20 hidden items-center gap-3 rounded-2xl border border-white/10 bg-[#151827]/90 p-3.5 shadow-2xl shadow-black/30 backdrop-blur-xl sm:flex xl:left-[-3%]">
+              <div className="absolute right-0 top-[15%] z-20 hidden rotate-12 items-center gap-3 rounded-2xl border border-white/10 bg-[#151827]/90 p-3.5 shadow-2xl shadow-black/30 backdrop-blur-xl sm:flex">
                 <div className="flex size-10 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400">
                   <MdOutlineVerified className="size-5" />
                 </div>
@@ -242,7 +243,7 @@ export default function Banner() {
               </div>
 
               {/* Floating company card */}
-              <div className="absolute right-0 top-[35%] z-20 hidden items-center gap-3 rounded-2xl border border-white/10 bg-[#151827]/90 p-3.5 shadow-2xl shadow-black/30 backdrop-blur-xl sm:flex xl:right-[-1%]">
+              <div className="absolute right-0 top-[45%] z-20 hidden items-center gap-3 rounded-2xl border border-white/10 bg-[#151827]/90 p-3.5 shadow-2xl shadow-black/30 backdrop-blur-xl sm:flex xl:right-[-1%]">
                 <div className="flex size-10 items-center justify-center rounded-xl bg-blue-500/20 text-blue-300">
                   <HiOutlineBuildingOffice2 className="size-5" />
                 </div>
@@ -257,23 +258,21 @@ export default function Banner() {
                 </div>
               </div>
 
-              <div className="relative mx-auto aspect-[4/4.2] w-full max-w-[530px]">
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[28%] bg-gradient-to-t from-[#080b14] via-[#080b14]/60 to-transparent" />
-
+              <div className="relative mx-auto aspect-4/3 md:aspect-4/3.75 w-full">
                 <Image
                   src="/images/hero-person.png"
                   alt="Professional exploring career opportunities on JobNest"
                   fill
                   priority
                   sizes="(max-width: 1024px) 90vw, 45vw"
-                  className="object-contain object-bottom"
+                  className="object-contain object-bottom scale-110"
                 />
               </div>
             </div>
           </div>
 
           {/* Search panel */}
-          <div className="relative z-30 mx-auto mt-8 max-w-6xl rounded-2xl border border-white/10 bg-[#111522]/90 p-3 shadow-[0_25px_100px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:mt-12 sm:p-4">
+          <div className="relative z-30 mx-auto mt-4 max-w-6xl rounded-2xl border border-white/10 bg-[#111522]/90 p-3 shadow-[0_25px_100px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:mt-12 sm:p-4">
             <div className="grid gap-2 md:grid-cols-[1fr_1fr_auto] md:items-center">
               {/* Job search */}
               <div className="flex min-w-0 items-center gap-3 rounded-xl px-3 py-3.5 transition focus-within:bg-white/[0.04] sm:px-4">
