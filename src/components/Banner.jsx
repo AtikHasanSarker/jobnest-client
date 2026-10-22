@@ -122,197 +122,228 @@ export default function Banner() {
 
   return (
     <main className="overflow-hidden">
-      <section className="relative min-h-225 overflow-hidden">
-        {/* Background linears */}
+      <section className="relative isolate overflow-hidden bg-[#080b14]">
+        {/* Background — same dark purple / blue aesthetic */}
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute -left-40 -top-20 h-[600px] w-[600px] rounded-full bg-violet-700/20 blur-[150px]" />
 
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 -top-10 h-[500px] w-225 -translate-x-1/2 rounded-full bg-violet-600/20 blur-[140px]" />
+          <div className="absolute right-[-180px] top-10 h-[600px] w-[600px] rounded-full bg-blue-600/15 blur-[150px]" />
 
-          <div className="absolute left-0 top-0 h-[700px] w-225 -translate-x-1/2 rounded-full bg-[#430442] blur-[140px]" />
+          <div className="absolute left-[35%] top-[20%] h-[500px] w-[500px] rounded-full bg-indigo-600/10 blur-[140px]" />
 
-          <div className="absolute right-0 top-0 h-[700px] w-225 translate-x-1/2 rounded-full bg-[#430442] blur-[140px]" />
-
-          <div className="absolute right-[-200px] top-[300px] h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[140px]" />
-
-          <div className="absolute bottom-[-200px] left-[-200px] h-[500px] w-[500px] rounded-full bg-fuchsia-600/10 blur-[140px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:linear-gradient(to_bottom,black,transparent_90%)]" />
         </div>
 
-        <div className="absolute left-1/2 -bottom-25 h-[500px] w-225 -translate-x-1/2 rounded-full bg-violet-600/20 blur-[140px]" />
-
-        {/* Hero content */}
-
-        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-40">
-          {/* Badge */}
-
-          <div className="flex justify-center">
-            <div className="inline-flex items-center gap-3 rounded-full border border-violet-400/20 bg-white/[0.04] px-4 py-2 text-xs shadow-2xl shadow-violet-500/10 backdrop-blur-xl sm:px-5 sm:py-2.5">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-violet-400/20 bg-violet-500/15 text-violet-300">
-                <IoSparklesOutline className="h-4 w-4" />
-              </span>
-
-              <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                <strong className="font-semibold text-white">
-                  Job<span className="text-violet-400">Nest</span>
-                </strong>
-
-                <span className="text-gray-500">/</span>
-
-                <span className="text-gray-300">
-                  Your Next Career Starts Here
+        <div className="relative mx-auto max-w-7xl px-5 pb-14 pt-28 sm:px-8 sm:pt-32 lg:px-10 lg:pb-16 lg:pt-36">
+          {/* Main hero layout */}
+          <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-4">
+            {/* LEFT — Hero content */}
+            <div className="relative z-20 max-w-2xl">
+              {/* Badge */}
+              <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-violet-400/20 bg-violet-500/[0.08] px-4 py-2 text-xs font-medium text-violet-200 shadow-lg shadow-violet-950/20 backdrop-blur-xl">
+                <span className="flex size-6 items-center justify-center rounded-full bg-violet-500/20 text-violet-300">
+                  <IoSparklesOutline className="size-3.5" />
                 </span>
-              </span>
-            </div>
-          </div>
+                Better opportunities. Brighter futures.
+              </div>
 
-          {/* Heading */}
+              {/* Heading */}
+              <h1 className="max-w-2xl text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-5xl md:text-6xl xl:text-[68px]">
+                Better careers
+                <span className="mt-1 block bg-gradient-to-r from-violet-400 via-fuchsia-400 to-blue-400 bg-clip-text pb-2 text-transparent">
+                  start here.
+                </span>
+              </h1>
 
-          <div className="mx-auto mt-8 max-w-5xl text-center">
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
-              Find work that
-              <span className="block bg-linear-to-r from-violet-400 via-fuchsia-400 to-blue-400 bg-clip-text text-transparent">
-                moves you forward.
-              </span>
-            </h1>
+              <p className="mt-6 max-w-xl text-base leading-7 text-gray-400 sm:text-lg sm:leading-8">
+                Discover top opportunities, connect with leading companies, and
+                take the next step in your career — all in one place.
+              </p>
 
-            <p className="mx-auto mt-7 max-w-2xl text-base leading-7 text-gray-400 md:text-lg">
-              JobNest connects ambitious professionals with leading companies
-              and opportunities that match their skills, goals, and career
-              ambitions.
-            </p>
-          </div>
+              {/* CTA buttons */}
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/jobs"
+                  className="group inline-flex min-h-12 items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-900/30 transition duration-200 hover:-translate-y-0.5 hover:from-violet-500 hover:to-indigo-500"
+                >
+                  <IoSearchOutline className="size-5" />
+                  Browse Jobs
+                  <IoArrowForward className="size-4 transition-transform group-hover:translate-x-1" />
+                </Link>
 
-          {/* Search */}
+                <Link
+                  href="/dashboard/recruiter/jobs/create"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-medium text-white transition hover:border-white/25 hover:bg-white/[0.08]"
+                >
+                  <HiOutlineBriefcase className="size-5" />
+                  Post a Job
+                </Link>
+              </div>
 
-          <div className="mx-auto mt-10 max-w-4xl">
-            <div className="rounded-2xl border border-white/10 bg-[#0d0d11]/90 p-2 shadow-[0_20px_80px_rgba(0,0,0,.5)] backdrop-blur-2xl">
-              <div className="flex flex-col md:flex-row">
-                {/* Job */}
+              {/* Stats */}
+              <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-5 border-t border-white/10 pt-7 sm:grid-cols-4 lg:max-w-2xl">
+                {stats.map((item) => (
+                  <div key={item.label} className="flex items-center gap-3">
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-lg text-violet-300">
+                      {item.icon}
+                    </div>
 
-                <div className="flex flex-1 items-center gap-3 px-4 py-4">
-                  <IoSearchOutline className="text-xl text-gray-500" />
+                    <div>
+                      <p className="text-xl font-semibold tracking-tight text-white">
+                        {item.value}
+                      </p>
 
-                  <div className="flex-1">
-                    <p className="text-[10px] uppercase tracking-wider text-gray-500">
-                      What are you looking for?
-                    </p>
-
-                    <input
-                      type="text"
-                      placeholder="Job title, skill or company"
-                      className="mt-1 w-full bg-transparent text-sm text-white outline-none placeholder:text-gray-600"
-                    />
+                      <p className="mt-0.5 text-[11px] leading-4 text-gray-500 sm:text-xs">
+                        {item.label}
+                      </p>
+                    </div>
                   </div>
-                </div>
-
-                <div className="hidden h-12 w-px self-center bg-white/10 md:block" />
-
-                {/* Location */}
-
-                <div className="flex flex-1 items-center gap-3 px-4 py-4">
-                  <IoLocationOutline className="text-xl text-gray-500" />
-
-                  <div className="flex-1">
-                    <p className="text-[10px] uppercase tracking-wider text-gray-500">
-                      Location
-                    </p>
-
-                    <input
-                      type="text"
-                      placeholder="City, country or remote"
-                      className="mt-1 w-full bg-transparent text-sm text-white outline-none placeholder:text-gray-600"
-                    />
-                  </div>
-                </div>
-
-                {/* Search button */}
-
-                <button className="flex items-center justify-center gap-2 cursor-pointer rounded-xl bg-linear-to-r from-violet-600 to-blue-600 px-7 py-4 text-sm font-medium transition hover:scale-[1.02] hover:from-violet-500 hover:to-blue-500">
-                  <IoSearchOutline className="text-xl" />
-                  Search Jobs
-                </button>
+                ))}
               </div>
             </div>
 
-            {/* Trending */}
+            {/* RIGHT — Your cutout image */}
+            <div className="relative mx-auto w-full max-w-xl lg:ml-auto lg:mr-0 lg:max-w-none">
+              {/* Image glow */}
+              <div className="pointer-events-none absolute left-1/2 top-[42%] h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/25 blur-[100px] sm:h-[430px] sm:w-[430px]" />
 
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
-              <span className="mr-1 text-xs text-gray-600">Trending:</span>
+              <div className="pointer-events-none absolute right-[8%] top-[18%] size-24 rounded-full bg-blue-500/10 blur-3xl" />
+
+              {/* Floating opportunity card */}
+              <div className="absolute left-0 top-[5%] z-20 hidden items-center gap-3 rounded-2xl border border-white/10 bg-[#151827]/90 p-3.5 shadow-2xl shadow-black/30 backdrop-blur-xl sm:flex xl:left-[-2%]">
+                <div className="flex size-10 items-center justify-center rounded-xl bg-violet-500/20 text-violet-300">
+                  <IoSparklesOutline className="size-5" />
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold text-white">
+                    New opportunities
+                  </p>
+                  <p className="mt-1 text-[10px] text-gray-400">
+                    Every single day
+                  </p>
+                </div>
+              </div>
+
+              {/* Floating career card */}
+              <div className="absolute top-[15%] left-0 z-20 hidden w-fit items-center gap-3 rounded-2xl border border-white/10 bg-[#151827]/90 p-3.5 shadow-2xl shadow-black/30 backdrop-blur-xl sm:flex xl:left-[-3%]">
+                <div className="flex size-10 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400">
+                  <MdOutlineVerified className="size-5" />
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold text-white">
+                    Your next chapter
+                  </p>
+                  <p className="mt-1 text-[10px] text-gray-400">
+                    Starts with one search
+                  </p>
+                </div>
+              </div>
+
+              {/* Floating company card */}
+              <div className="absolute right-0 top-[35%] z-20 hidden items-center gap-3 rounded-2xl border border-white/10 bg-[#151827]/90 p-3.5 shadow-2xl shadow-black/30 backdrop-blur-xl sm:flex xl:right-[-1%]">
+                <div className="flex size-10 items-center justify-center rounded-xl bg-blue-500/20 text-blue-300">
+                  <HiOutlineBuildingOffice2 className="size-5" />
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold text-white">
+                    Top companies
+                  </p>
+                  <p className="mt-1 text-[10px] text-gray-400">
+                    Ready to hire
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative mx-auto aspect-[4/4.2] w-full max-w-[530px]">
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[28%] bg-gradient-to-t from-[#080b14] via-[#080b14]/60 to-transparent" />
+
+                <Image
+                  src="/images/hero-person.png"
+                  alt="Professional exploring career opportunities on JobNest"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 90vw, 45vw"
+                  className="object-contain object-bottom"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Search panel */}
+          <div className="relative z-30 mx-auto mt-8 max-w-6xl rounded-2xl border border-white/10 bg-[#111522]/90 p-3 shadow-[0_25px_100px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:mt-12 sm:p-4">
+            <div className="grid gap-2 md:grid-cols-[1fr_1fr_auto] md:items-center">
+              {/* Job search */}
+              <div className="flex min-w-0 items-center gap-3 rounded-xl px-3 py-3.5 transition focus-within:bg-white/[0.04] sm:px-4">
+                <IoSearchOutline className="size-5 shrink-0 text-violet-300" />
+
+                <div className="min-w-0 flex-1">
+                  <label
+                    htmlFor="hero-job-search"
+                    className="block text-[10px] font-semibold uppercase tracking-wider text-gray-500"
+                  >
+                    What are you looking for?
+                  </label>
+
+                  <input
+                    id="hero-job-search"
+                    type="text"
+                    placeholder="Job title, skills or keywords"
+                    className="mt-1.5 w-full bg-transparent text-sm text-white outline-none placeholder:text-gray-600"
+                  />
+                </div>
+              </div>
+
+              <div className="hidden h-10 w-px bg-white/10 md:block" />
+
+              {/* Location */}
+              <div className="flex min-w-0 items-center gap-3 rounded-xl px-3 py-3.5 transition focus-within:bg-white/[0.04] sm:px-4">
+                <IoLocationOutline className="size-5 shrink-0 text-violet-300" />
+
+                <div className="min-w-0 flex-1">
+                  <label
+                    htmlFor="hero-job-location"
+                    className="block text-[10px] font-semibold uppercase tracking-wider text-gray-500"
+                  >
+                    Location
+                  </label>
+
+                  <input
+                    id="hero-job-location"
+                    type="text"
+                    placeholder="City, country or remote"
+                    className="mt-1.5 w-full bg-transparent text-sm text-white outline-none placeholder:text-gray-600"
+                  />
+                </div>
+              </div>
+
+              {/* Search action */}
+              <Link
+                href="/jobs"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-7 text-sm font-semibold text-white transition hover:from-violet-500 hover:to-indigo-500"
+              >
+                <IoSearchOutline className="size-4" />
+                Search Jobs
+              </Link>
+            </div>
+
+            {/* Trending searches */}
+            <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-white/[0.06] px-2 pt-4">
+              <span className="mr-1 text-[11px] font-medium text-gray-500">
+                Trending:
+              </span>
 
               {trending.map((item) => (
                 <Link
                   href={`/jobs?search=${encodeURIComponent(item)}`}
                   key={item}
-                  className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-gray-400 transition hover:border-violet-500/40 hover:bg-violet-500/10 hover:text-white"
+                  className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[11px] text-gray-400 transition hover:border-violet-400/30 hover:bg-violet-500/10 hover:text-white"
                 >
                   {item}
                 </Link>
               ))}
-            </div>
-          </div>
-
-          {/* =====================================================
-          STATS
-      ====================================================== */}
-
-          <section className="relative mt-15 md:mt-40 pb-10">
-            <div className="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((item, index) => (
-                <div
-                  key={item.label}
-                  className={`group items-center rounded-xl px-6 py-8 md:px-10 border bg-mist-900/80`}
-                >
-                  <div className="flex h-14 w-14 mb-8 items-center justify-center rounded-xl bg-linear-to-br from-violet-500/20 to-blue-500/10 text-2xl">
-                    {item.icon}
-                  </div>
-
-                  <div>
-                    <p className="text-3xl font-semibold">{item.value}</p>
-
-                    <p className="mt-2">{item.label}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Floating visual cards */}
-
-          <div className="pointer-events-none absolute left-0 top-150 hidden xl:block">
-            <div className="rounded-2xl border border-white/10 bg-[#111116]/90 p-4 shadow-2xl backdrop-blur-xl">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10 text-violet-400">
-                  <MdOutlineVerified className="text-xl" />
-                </div>
-
-                <div>
-                  <p className="text-xs font-medium">Verified Companies</p>
-                  <p className="mt-1 text-[10px] text-gray-500">
-                    Trusted opportunities
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="pointer-events-none absolute right-0 top-150 hidden xl:block">
-            <div className="w-56 rounded-2xl border border-white/10 bg-[#111116]/90 p-4 shadow-2xl backdrop-blur-xl">
-              <div className="mb-3 flex items-center justify-between">
-                <span className="text-[10px] text-gray-500">
-                  REMOTE OPPORTUNITY
-                </span>
-
-                <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              </div>
-
-              <p className="text-sm font-medium">Senior Software Engineer</p>
-
-              <p className="mt-1 text-xs text-gray-500">Airbnb · Remote</p>
-
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-xs text-emerald-400">$120k–$165k</span>
-
-                <FiArrowUpRight className="text-gray-500" />
-              </div>
             </div>
           </div>
         </div>
@@ -642,7 +673,9 @@ export default function Banner() {
                   </div>
                   <div>
                     <h3 className="font-medium">{company.name}</h3>
-                    <p className="mt-1 text-xs text-gray-500">{company.jobCount} Jobs</p>
+                    <p className="mt-1 text-xs text-gray-500">
+                      {company.jobCount} Jobs
+                    </p>
                   </div>
                 </div>
               </div>
