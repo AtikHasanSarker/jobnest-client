@@ -226,7 +226,7 @@ export default function Banner() {
               </div>
 
               {/* Floating career card */}
-              <div className="absolute top-[15%] left-0 z-20 hidden w-fit items-center gap-3 rounded-2xl border border-white/10 bg-[#151827]/90 p-3.5 shadow-2xl shadow-black/30 backdrop-blur-xl sm:flex xl:left-[-3%]">
+              <div className="absolute right-0 top-[15%] z-20 hidden items-center gap-3 rounded-2xl border border-white/10 bg-[#151827]/90 p-3.5 shadow-2xl shadow-black/30 backdrop-blur-xl sm:flex xl:left-[-3%]">
                 <div className="flex size-10 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400">
                   <MdOutlineVerified className="size-5" />
                 </div>
@@ -296,8 +296,6 @@ export default function Banner() {
                 </div>
               </div>
 
-              <div className="hidden h-10 w-px bg-white/10 md:block" />
-
               {/* Location */}
               <div className="flex min-w-0 items-center gap-3 rounded-xl px-3 py-3.5 transition focus-within:bg-white/[0.04] sm:px-4">
                 <IoLocationOutline className="size-5 shrink-0 text-violet-300" />
@@ -320,13 +318,15 @@ export default function Banner() {
               </div>
 
               {/* Search action */}
-              <Link
-                href="/jobs"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-7 text-sm font-semibold text-white transition hover:from-violet-500 hover:to-indigo-500"
-              >
-                <IoSearchOutline className="size-4" />
-                Search Jobs
-              </Link>
+              <div>
+                <Link
+                  href="/jobs"
+                  className="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-7 text-sm font-semibold text-white transition hover:from-violet-500 hover:to-indigo-500"
+                >
+                  <IoSearchOutline className="size-4" />
+                  Search Jobs
+                </Link>
+              </div>
             </div>
 
             {/* Trending searches */}
